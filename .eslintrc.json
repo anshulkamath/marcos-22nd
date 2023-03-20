@@ -16,6 +16,7 @@
     "rules": {
         "prettier/prettier": "error",
         "@typescript-eslint/restrict-template-expressions": "off",
-        "@typescript-eslint/comma-dangle": "off"
+        "@typescript-eslint/comma-dangle": "off",
+        "no-unused-vars": ["error", { "ignorePattern": "^_" }]
     }
 }

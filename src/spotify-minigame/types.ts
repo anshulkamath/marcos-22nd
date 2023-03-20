@@ -31,3 +31,15 @@ export interface PlaylistItem {
   name: string
   id: string
 }
+
+export interface Guess {
+  date: string
+  name: string
+  id: string
+}
+
+export interface ScoreResponse {
+  score: number
+  correctDate: string
+  correctName: string
+}
