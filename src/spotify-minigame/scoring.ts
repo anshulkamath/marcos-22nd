@@ -6,7 +6,7 @@ import { type Guess, type ScoreResponse } from './types'
 
 const POINTS_PER_NAME = 5
 const POINTS_PER_DATE = 5
-const NAME_THRESH = 1/5;
+const NAME_THRESH = 1 / 5
 
 /**
  * Give bonuses depending on level of difficulty, which is as follows:
@@ -27,12 +27,23 @@ export const calculateScore = async ({ name, date, id, level }: Guess): Promise<
   const addedDateTime = DateTime.fromISO(actual.added_at)
   const interval = Interval.fromDateTimes(
     addedDateTime.minus({ months: 1 }),
-    addedDateTime.plus({ months: 1 })
+    addedDateTime.plus({ months: 1 }),
   )
 
-  const nameCorrect = +(levenshtein(name.toLocaleLowerCase(), actual.name.toLocaleLowerCase()) <= Math.round(name.length * NAME_THRESH))
-  const dateCorrect = +(interval.contains(DateTime.fromISO(date)))
-  const score = POINTS_PER_NAME * nameCorrect + POINTS_PER_DATE * dateCorrect + LEVEL_ADJUSTMENTS[level]
+  const nameCorrect = +(
+    levenshtein(name.toLocaleLowerCase(), actual.name.toLocaleLowerCase()) <=
+    Math.round(name.length * NAME_THRESH)
+  )
+  const dateCorrect = +interval.contains(DateTime.fromISO(date))
+  const score =
+    POINTS_PER_NAME * nameCorrect +
+    POINTS_PER_DATE * dateCorrect +
+    nameCorrect * dateCorrect * LEVEL_ADJUSTMENTS[level]
 
-  return { score, correctDate: actual.added_at, correctName: actual.name}
+  return {
+    score,
+    correctDate: actual.added_at,
+    correctName: actual.name,
+    nameAccepted: nameCorrect === 1,
+  }
 }

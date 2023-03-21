@@ -4,7 +4,14 @@
 import _ from 'lodash'
 
 import { fetchToken } from './auth'
-import { HttpMethod, playlistURL, playlistFilter, ResponseCodes, playlistTotal, marcosId } from './constants'
+import {
+  HttpMethod,
+  playlistURL,
+  playlistFilter,
+  ResponseCodes,
+  playlistTotal,
+  marcosId,
+} from './constants'
 
 import {
   type PlaylistItemRaw,
@@ -58,7 +65,11 @@ const fetchPlaylistSize = async (playlistId = marcosId): Promise<number> => {
  * @param limit       How many items to return (limit 100)
  * @returns A response with playlist data
  */
-const fetchPlaylistItems = async (playlistId = marcosId, offset = 0, limit = 100): Promise<PlaylistItem[]> => {
+const fetchPlaylistItems = async (
+  playlistId = marcosId,
+  offset = 0,
+  limit = 100,
+): Promise<PlaylistItem[]> => {
   const token = await fetchToken()
 
   const queryString = new URLSearchParams({
@@ -102,9 +113,12 @@ const filterPlaylistItems = (response: PlaylistResponse): PlaylistItem[] => {
     ...elem.track,
   })
 
-  const playlistItems = _.map(
-    _.filter(_.get(response, 'tracks.items'), 'track.preview_url'),
-    flatten,
+  const noSpecialCharacter = /^[a-zA-Z0-9][a-zA-Z0-9]+$/
+  const playableName = (elem: PlaylistItem): boolean => noSpecialCharacter.test(elem.name)
+
+  const playlistItems = _.filter(
+    _.map(_.filter(_.get(response, 'tracks.items'), 'track.preview_url'), flatten),
+    playableName,
   )
 
   return playlistItems
@@ -118,14 +132,18 @@ const filterPlaylistItems = (response: PlaylistResponse): PlaylistItem[] => {
  * @param playlistId The access token to be used
  * @returns A list of all (valid) items in Marcos' playlist
  */
-const getPlaylistMemoized = (playlistId = marcosId): ((playlistId?: string) => Promise<[PlaylistItem[], Record<string, number>]>) => {
-  const playlistItems: PlaylistItem[] = []
+const getPlaylistMemoized = (
+  playlistId = marcosId,
+): ((playlistId?: string) => Promise<[PlaylistItem[], Record<string, number>]>) => {
+  let playlistItems: PlaylistItem[] = []
   const idToItemMap: Record<string, number> = {}
   let playlistSize = -1
   let currentPlaylist = playlistId
 
-  const getPlaylist = async (playlistId = marcosId): Promise<[PlaylistItem[], Record<string, number>]> => {
-    if (playlistItems.length === playlistSize && currentPlaylist == playlistId) {
+  const getPlaylist = async (
+    playlistId = marcosId,
+  ): Promise<[PlaylistItem[], Record<string, number>]> => {
+    if (playlistItems.length === playlistSize && currentPlaylist === playlistId) {
       return [playlistItems, idToItemMap]
     }
 
@@ -142,7 +160,7 @@ const getPlaylistMemoized = (playlistId = marcosId): ((playlistId?: string) => P
       playlistPromises.push(fetchPlaylistItems(playlistId, i, i + 100))
     }
     const resolvedPlaylists = await Promise.all(playlistPromises)
-    playlistItems.push(..._.union(...resolvedPlaylists))
+    playlistItems = _.uniqWith(_.flatten(resolvedPlaylists), _.isEqual)
     playlistSize = playlistItems.length
 
     _.forEach(playlistItems, (elem, i) => {

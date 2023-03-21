@@ -43,4 +43,5 @@ export interface ScoreResponse {
   score: number
   correctDate: string
   correctName: string
+  nameAccepted: boolean
 }

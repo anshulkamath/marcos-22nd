@@ -15,7 +15,8 @@ export enum ResponseCodes {
 export const grantType = 'client_credentials'
 export const accountURL = 'https://accounts.spotify.com/api/token'
 export const marcosId = '0v0OpK2jpvsOv1EKjcq6lv'
-export const playlistURL = (playlistId = marcosId) => `https://api.spotify.com/v1/playlists/${playlistId}`
+export const playlistURL = (playlistId = marcosId): string =>
+  `https://api.spotify.com/v1/playlists/${playlistId}`
 export const playlistFilter = 'tracks(items(added_at,track(preview_url,name,id)))'
 export const playlistTotal = 'tracks(total)'
 

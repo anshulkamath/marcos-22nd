@@ -14,7 +14,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 
 export const getSpotifySong = async (req: Request, res: Response): Promise<void> => {
   try {
-    const playlistId: any = req.query.playlistId || undefined
+    const playlistId: any = req.query.playlistId ?? undefined
     const [playlist] = await getPlaylist(playlistId)
     const chosenSong = _.sample(playlist)
 
@@ -26,7 +26,7 @@ export const getSpotifySong = async (req: Request, res: Response): Promise<void>
     catchError(e, (e) => {
       res.status(400).send({
         error: e.message,
-      })  
+      })
     })
   }
 }
@@ -42,7 +42,7 @@ export const postSpotifySong = async (req: Request, res: Response): Promise<void
     catchError(e, (e) => {
       res.status(400).send({
         error: e.message,
-      })  
+      })
     })
   }
 }

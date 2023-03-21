@@ -17,6 +17,8 @@
         "prettier/prettier": "error",
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/comma-dangle": "off",
-        "no-unused-vars": ["error", { "ignorePattern": "^_" }]
-    }
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
+    },
+    "ignorePatterns": ["dist/**"]
 }
