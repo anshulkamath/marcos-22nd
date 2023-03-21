@@ -16,7 +16,7 @@ export const calculateScore = async ({ name, date, id }: Guess): Promise<ScoreRe
   const [playlistItems, idMap] = await getPlaylist()
   const actual = playlistItems[idMap[id]]
 
-  const nameCorrect = +(levenshtein(name.toLowerCase(), actual.name.toLowerCase()) <= Math.round(name.length * NAME_THRESH))
+  const nameCorrect = +(levenshtein(name.toLocaleLowerCase(), actual.name.toLocaleLowerCase()) <= Math.round(name.length * NAME_THRESH))
   const dateCorrect = +(DateTime.fromISO(date).diff(DateTime.fromISO(actual.added_at)).as('month') <= 1)
   const score = POINTS_PER_NAME * nameCorrect + POINTS_PER_DATE * dateCorrect
 
