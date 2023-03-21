@@ -4,7 +4,7 @@
 import _ from 'lodash'
 
 import { fetchToken } from './auth'
-import { HttpMethod, playlistURL, playlistFilter, ResponseCodes, playlistTotal } from './constants'
+import { HttpMethod, playlistURL, playlistFilter, ResponseCodes, playlistTotal, marcosId } from './constants'
 
 import {
   type PlaylistItemRaw,
@@ -14,11 +14,12 @@ import {
 } from './types'
 
 /**
- * Gets the length of Marcos' playlist
+ * Gets the length of a given playlist
  *
+ * @param playlistId The id of the playlist to get the length of
  * @returns A response with playlist size
  */
-const fetchPlaylistSize = async (): Promise<number> => {
+const fetchPlaylistSize = async (playlistId = marcosId): Promise<number> => {
   const token = await fetchToken()
 
   const queryString = new URLSearchParams({
@@ -32,7 +33,7 @@ const fetchPlaylistSize = async (): Promise<number> => {
     },
   }
 
-  const response = await fetch(`${playlistURL}?${queryString}`, requestParams)
+  const response = await fetch(`${playlistURL(playlistId)}?${queryString}`, requestParams)
 
   if (response.status !== ResponseCodes.OK) {
     if (response.status === ResponseCodes.FORBIDDEN) {
@@ -50,13 +51,14 @@ const fetchPlaylistSize = async (): Promise<number> => {
 }
 
 /**
- * Gets the items in Marcos' playlist
+ * Gets the items in the given playlist
  *
- * @param offset  Where to start pagination
- * @param limit   How many items to return (limit 100)
+ * @param playlistId  The ID of the playlist to fetch items from
+ * @param offset      Where to start pagination
+ * @param limit       How many items to return (limit 100)
  * @returns A response with playlist data
  */
-const fetchPlaylistItems = async (offset = 0, limit = 100): Promise<PlaylistItem[]> => {
+const fetchPlaylistItems = async (playlistId = marcosId, offset = 0, limit = 100): Promise<PlaylistItem[]> => {
   const token = await fetchToken()
 
   const queryString = new URLSearchParams({
@@ -72,7 +74,7 @@ const fetchPlaylistItems = async (offset = 0, limit = 100): Promise<PlaylistItem
     },
   }
 
-  const response = await fetch(`${playlistURL}?${queryString}`, requestParams)
+  const response = await fetch(`${playlistURL(playlistId)}?${queryString}`, requestParams)
 
   if (response.status !== ResponseCodes.OK) {
     if (response.status === ResponseCodes.FORBIDDEN) {
@@ -109,28 +111,35 @@ const filterPlaylistItems = (response: PlaylistResponse): PlaylistItem[] => {
 }
 
 /**
- * A function that creates a list of all Marcos' songs. This function is
+ * A function that creates a list of all songs in the playlist. This function is
  * memoized so that it is more performant. It should only hit Spotify's
  * servers once.
  *
- * @param token The access token to be used
+ * @param playlistId The access token to be used
  * @returns A list of all (valid) items in Marcos' playlist
  */
-const getPlaylistMemoized = (): (() => Promise<[PlaylistItem[], Record<string, number>]>) => {
+const getPlaylistMemoized = (playlistId = marcosId): ((playlistId?: string) => Promise<[PlaylistItem[], Record<string, number>]>) => {
   const playlistItems: PlaylistItem[] = []
   const idToItemMap: Record<string, number> = {}
   let playlistSize = -1
+  let currentPlaylist = playlistId
 
-  const getPlaylist = async (): Promise<[PlaylistItem[], Record<string, number>]> => {
-    if (playlistItems.length === playlistSize) {
+  const getPlaylist = async (playlistId = marcosId): Promise<[PlaylistItem[], Record<string, number>]> => {
+    if (playlistItems.length === playlistSize && currentPlaylist == playlistId) {
       return [playlistItems, idToItemMap]
     }
 
-    const totalElements = await fetchPlaylistSize()
+    console.log(`loading playlist ${playlistId}`)
+
+    if (currentPlaylist !== playlistId) {
+      currentPlaylist = playlistId
+    }
+
+    const totalElements = await fetchPlaylistSize(playlistId)
     const playlistPromises: Array<Promise<PlaylistItem[]>> = []
 
     for (let i = 0; i < totalElements; i += 100) {
-      playlistPromises.push(fetchPlaylistItems(i, i + 100))
+      playlistPromises.push(fetchPlaylistItems(playlistId, i, i + 100))
     }
     const resolvedPlaylists = await Promise.all(playlistPromises)
     playlistItems.push(..._.union(...resolvedPlaylists))

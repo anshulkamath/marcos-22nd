@@ -14,9 +14,13 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 
 export const getSpotifySong = async (req: Request, res: Response): Promise<void> => {
   try {
-    const [playlist] = await getPlaylist()
+    const playlistId: any = req.query.playlistId || undefined
+    const [playlist] = await getPlaylist(playlistId)
+    const chosenSong = _.sample(playlist)
+
     res.status(200).send({
-      preview_url: _.sample(playlist)?.preview_url,
+      preview_url: chosenSong?.preview_url,
+      id: chosenSong?.id,
     })
   } catch (e: unknown) {
     catchError(e, (e) => {
@@ -28,10 +32,10 @@ export const getSpotifySong = async (req: Request, res: Response): Promise<void>
 }
 
 export const postSpotifySong = async (req: Request, res: Response): Promise<void> => {
-  const { name, date, id } = req.body
+  const { name, date, id, level } = req.body
 
   try {
-    const scoreResponse = await calculateScore({ name, date, id })
+    const scoreResponse = await calculateScore({ name, date, id, level })
 
     res.status(200).send(scoreResponse)
   } catch (e) {

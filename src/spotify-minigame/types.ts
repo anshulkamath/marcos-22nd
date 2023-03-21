@@ -36,6 +36,7 @@ export interface Guess {
   date: string
   name: string
   id: string
+  level: 1 | 2 | 3
 }
 
 export interface ScoreResponse {
