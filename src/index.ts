@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import {
+  getNextPuzzleMetadataHandler,
   getPuzzleHandler,
   getSpotifySong,
   postSpotifySong,
@@ -18,6 +19,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static('src/public'))
 
+app.get('/nextPuzzleMetadata', getNextPuzzleMetadataHandler)
 app.get('/puzzle', getPuzzleHandler)
 app.get('/spotify', getSpotifySong)
 app.post('/spotify', postSpotifySong)

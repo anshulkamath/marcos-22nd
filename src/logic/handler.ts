@@ -1,11 +1,28 @@
 import _ from 'lodash'
 import { type Request, type Response } from 'express'
+import { keywords } from './constants'
 import { getPlaylist, calculateScore } from '../spotify-minigame'
 import { catchError } from './utils'
 
+export const getNextPuzzleMetadataHandler = (req: Request, res: Response): void => {
+  const { authorization: puzzleId } = req.headers
+  const puzzleIndex = keywords.indexOf(puzzleId as string)
+
+  if (puzzleIndex === -1) {
+    res.status(400).send({
+      error: 'An invalid keyword was given',
+    })
+    return
+  }
+
+  res.status(200).send({
+    puzzles: keywords.slice(0, puzzleIndex + 1),
+  })
+}
+
 export const getPuzzleHandler = (req: Request, res: Response): void => {
-  const { id: puzzleId } = req.query
-  console.log(puzzleId)
+  const { authorization: puzzleId } = req.headers
+  console.log(`Attempting to get puzzle ${puzzleId}`)
 
   res.status(200).send({
     message: `The given puzzle id was ${puzzleId}`,

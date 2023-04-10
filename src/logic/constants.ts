@@ -1,0 +1,17 @@
+export const keywords = [
+  'starter pack',
+  'suspect #1',
+  'pogo.',
+  'cum in sink',
+  'dan down',
+  'who me?',
+  'sandwhich?',
+  'elliptic curves',
+  'albany',
+  'riggs',
+  'time-it',
+  'ny mf giants',
+  'nowuh',
+  'kart',
+  'bars',
+]
