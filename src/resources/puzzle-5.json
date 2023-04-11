@@ -1,0 +1,7 @@
+{
+  "title": "Baby Crypto-bro",
+  "keyword": "who me?",
+  "description": "This is a mystery puzzle! (No, the title is not suggestive of anything...) Buena suerte.",
+  "hint": "Do some digging on the given webpage",
+  "redirect": "http://localhost:8080/mystery.html"
+}

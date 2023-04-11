@@ -1,10 +1,11 @@
 import _ from 'lodash'
 import { type Request, type Response } from 'express'
-import { keywords } from './constants'
+import { GET_PUZZLE_NAMES_QUERY } from '../constants/api'
+import { keywords, puzzleInfo, puzzleNames } from '../constants/puzzle'
 import { getPlaylist, calculateScore } from '../spotify-minigame'
 import { catchError } from './utils'
 
-export const getNextPuzzleMetadataHandler = (req: Request, res: Response): void => {
+export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
   const { authorization: puzzleId } = req.headers
   const puzzleIndex = keywords.indexOf(puzzleId as string)
 
@@ -16,14 +17,20 @@ export const getNextPuzzleMetadataHandler = (req: Request, res: Response): void 
   }
 
   res.status(200).send({
-    puzzles: keywords.slice(0, puzzleIndex + 1),
+    puzzleInfo: puzzleInfo.slice(0, puzzleIndex + 2).map((elem) => _.omit(elem, ['keyword'])),
   })
 }
 
 export const getPuzzleHandler = (req: Request, res: Response): void => {
+  const { field } = req.query
   const { authorization: puzzleId } = req.headers
-  console.log(`Attempting to get puzzle ${puzzleId}`)
 
+  if (field === GET_PUZZLE_NAMES_QUERY) {
+    res.status(200).send(puzzleNames)
+    return
+  }
+
+  console.log(`Attempting to get puzzle ${puzzleId}`)
   res.status(200).send({
     message: `The given puzzle id was ${puzzleId}`,
   })
