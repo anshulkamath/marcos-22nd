@@ -36,6 +36,23 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
   })
 }
 
+export const postPuzzleHandler = (req: Request, res: Response): void => {
+  const { authorization: puzzleId } = req.headers
+  const { keyword: guess } = req.body
+  const keywordIdx = keywords.indexOf(puzzleId as string)
+
+  if (keywords.indexOf(guess) !== keywordIdx + 1) {
+    res.status(400).send({
+      message: puzzleInfo[keywordIdx + 1].failureMessage,
+    })
+    return
+  }
+
+  res.status(200).send({
+    message: puzzleInfo[keywordIdx + 1].successMessage,
+  })
+}
+
 export const getSpotifySong = async (req: Request, res: Response): Promise<void> => {
   try {
     const playlistId: any = req.query.playlistId ?? undefined

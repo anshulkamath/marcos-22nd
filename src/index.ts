@@ -6,6 +6,7 @@ import cors from 'cors'
 import {
   getPuzzleMetadataHandler,
   getPuzzleHandler,
+  postPuzzleHandler,
   getSpotifySong,
   postSpotifySong,
   getRSAPuzzleHandler,
@@ -21,6 +22,7 @@ app.use(express.static('src/public'))
 
 app.get('/puzzleMetadata', getPuzzleMetadataHandler)
 app.get('/puzzle', getPuzzleHandler)
+app.post('/puzzle', postPuzzleHandler)
 app.get('/spotify', getSpotifySong)
 app.post('/spotify', postSpotifySong)
 app.get('/rsa', getRSAPuzzleHandler)

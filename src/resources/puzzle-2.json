@@ -3,5 +3,7 @@
   "keyword": "pogo.",
   "description": "Yesterday's puzzle was too easy, but that's okay. Today, we are going to venture into our *favorite* territory... system's puzzles! I hope you remember your GDB skills :)",
   "hint": "Object Dumps and Debuggers",
-  "redirect": false
+  "redirect": false,
+  "successMessage": "You actually made it to the end? Past Dr. Evil?? Maybe I underestimated you...",
+  "failureMessage": "Ha! I knew you didn't have what it takes."
 }

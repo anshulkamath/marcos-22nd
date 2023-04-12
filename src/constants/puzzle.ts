@@ -20,6 +20,8 @@ export interface PuzzleInfo {
   description: string
   hint: string
   redirect: string | boolean
+  successMessage: string
+  failureMessage: string
 }
 
 export const puzzleInfo: PuzzleInfo[] = [

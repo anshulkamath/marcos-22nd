@@ -3,5 +3,7 @@
   "keyword": "kart",
   "description": "When I was in SF over spring break, I explained the advent calendar concept to Mr. Tom. This is his contribution.",
   "hint": "exit codes",
-  "redirect": false
+  "redirect": false,
+  "successMessage": "Looks like someone knows his systems concepts",
+  "failureMessage": "Oof... at least this is the last systems puzzle."
 }

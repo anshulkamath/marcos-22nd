@@ -3,5 +3,7 @@
   "keyword": "bars",
   "description": "You've made it to the final puzzle! Congratulations. I've decided to reward you with a nice stroll through memory lane. Have fun :)",
   "hint": "none needed",
-  "redirect": "http://localhost:8080/spotify.html"
+  "redirect": "http://localhost:8080/spotify.html",
+  "successMessage": "Happy birthday, Paco :)",
+  "failureMessage": "That's not the right keyphrase - try entering it again?"
 }
