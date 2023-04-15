@@ -4,6 +4,7 @@
   "description": "This is a mystery puzzle! (No, the title is not suggestive of anything...) Buena suerte.",
   "hint": "Do some digging on the given webpage",
   "redirect": "http://localhost:8080/mystery.html",
+  "resourceName": null,
   "successMessage": "Awww do you finally understand how RSA works? I guess next step is Elliptic Curves! Haha jk... unless?",
   "failureMessage": "It was quite an involved process. I don't hold your failures against you."
 }

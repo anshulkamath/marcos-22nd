@@ -3,7 +3,8 @@
   "keyword": "nowuh",
   "description": "Again, I have no clue what to expect here. Good luck.",
   "hint": "nowuh",
-  "redirect": false,
+  "redirect": null,
+  "resourceName": null,
   "successMessage": "You know Noah too well",
   "failureMessage": "Haha! Noah fucked you!"
 }

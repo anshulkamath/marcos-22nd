@@ -2,7 +2,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "source .env && npm run build && node ."
+    "start": "source .env && npm run clean && npm run build && cp -r puzzle-packages dist/ && node .",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",

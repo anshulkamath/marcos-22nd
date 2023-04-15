@@ -3,7 +3,8 @@
   "keyword": "sandwich?",
   "description": "Have you recovered from 'Systemic Hell' and 'Baby Crypto-bro' yet? No? Well, let's see what Evan has in store for you. Good luck!",
   "hint": "Unclear",
-  "redirect": false,
+  "redirect": null,
+  "resourceName": null,
   "successMessage": "I guess a 'hoorah' is in order?",
   "failureMessage": "I honestly had no clue that Evan was going to do that. I'm sorry."
 }

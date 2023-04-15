@@ -4,6 +4,7 @@
   "description": "I took your game `rugb` and I bastardized it, just for you. Hope your hours of gameplay help you out here.",
   "hint": "delta E",
   "redirect": "http://localhost:8080/revb.html",
+  "resourceName": null,
   "successMessage": "Looks like your Delta-E-meter is finely tuned",
   "failureMessage": "You should go study up on your colors"
 }

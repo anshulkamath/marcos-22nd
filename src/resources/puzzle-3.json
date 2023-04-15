@@ -3,7 +3,8 @@
   "keyword": "cum in sink",
   "description": "Today we are going to take a stroll through your last 4 years as part of our new game show... \"Who dun it?\"",
   "hint": "Run the executable in the docker container",
-  "redirect": false,
+  "redirect": null,
+  "resourceName": "who-dun-it-pkg.zip",
   "successMessage": "I hope you liked that one. Who did dun it? Who is h???",
   "failureMessage": "GDB strikes again, huh?"
 }

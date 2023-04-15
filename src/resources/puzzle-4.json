@@ -3,7 +3,8 @@
   "keyword": "dan down",
   "description": "In the spirit of our first guest speaker, Daniela Sechen, we have a classic crossword!",
   "hint": "Do the crossword fam",
-  "redirect": false,
+  "redirect": null,
+  "resourceName": null,
   "successMessage": "I'll tell Dan that you finished her crossword",
   "failureMessage": "It's okay - Dan's crossword IQ is way above ours."
 }

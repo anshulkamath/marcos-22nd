@@ -19,7 +19,8 @@ export interface PuzzleInfo {
   keyword: string
   description: string
   hint: string
-  redirect: string | boolean
+  redirect: string | null
+  resourceName: string | null
   successMessage: string
   failureMessage: string
 }

@@ -3,7 +3,8 @@
   "keyword": "ny mf giants",
   "description": "This puzzle is dedicated to the biggest fútbol fan I've met - congrats on winning the World Cup. Now let's see if you know your Argentinian soccer history.",
   "hint": "https://en.wikipedia.org/wiki/Argentina_national_football_team",
-  "redirect": false,
+  "redirect": null,
+  "resourceName": null,
   "successMessage": "YOU REALLY ARE A GIANTS SUPERFAN <3",
   "failureMessage": "I can't even begin to express my disappointment in your failures."
 }

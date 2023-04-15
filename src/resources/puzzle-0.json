@@ -3,7 +3,8 @@
   "keyword": "starter pack",
   "description": "",
   "hint": "",
-  "redirect": false,
+  "redirect": null,
+  "resourceName": null,
   "successMessage": "",
   "failureMessage": ""
 }
