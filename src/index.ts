@@ -2,6 +2,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import path from 'path'
 
 import {
   getPuzzleMetadataHandler,
@@ -20,6 +21,10 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static('src/public'))
 
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'))
+
+// api
 app.get('/puzzleMetadata', getPuzzleMetadataHandler)
 app.get('/puzzle', getPuzzleHandler)
 app.post('/puzzle', postPuzzleHandler)
