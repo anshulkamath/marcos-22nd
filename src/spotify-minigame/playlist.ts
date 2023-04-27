@@ -52,9 +52,9 @@ const fetchPlaylistSize = async (playlistId = marcosId): Promise<number> => {
     )
   }
 
-  const playlistSizeResponse: PlaylistSizeResponse = await response.json()
+  const { total }: PlaylistSizeResponse = await response.json()
 
-  return playlistSizeResponse.tracks.total
+  return total
 }
 
 /**
@@ -113,11 +113,11 @@ const filterPlaylistItems = (response: PlaylistResponse): PlaylistItem[] => {
     ...elem.track,
   })
 
-  const noSpecialCharacter = /^[a-zA-Z0-9][a-zA-Z0-9]+$/
+  const noSpecialCharacter = /^[a-zA-Z'\s]+$/g
   const playableName = (elem: PlaylistItem): boolean => noSpecialCharacter.test(elem.name)
 
   const playlistItems = _.filter(
-    _.map(_.filter(_.get(response, 'tracks.items'), 'track.preview_url'), flatten),
+    _.map(_.filter(_.get(response, 'items'), 'track.preview_url'), flatten),
     playableName,
   )
 
@@ -157,8 +157,9 @@ const getPlaylistMemoized = (
     const playlistPromises: Array<Promise<PlaylistItem[]>> = []
 
     for (let i = 0; i < totalElements; i += 100) {
-      playlistPromises.push(fetchPlaylistItems(playlistId, i, i + 100))
+      playlistPromises.push(fetchPlaylistItems(playlistId, i, 100))
     }
+
     const resolvedPlaylists = await Promise.all(playlistPromises)
     playlistItems = _.uniqWith(_.flatten(resolvedPlaylists), _.isEqual)
     playlistSize = playlistItems.length

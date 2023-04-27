@@ -18,6 +18,7 @@
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/indent": "off",
         "no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }]
     },
     "ignorePatterns": ["dist/**", "src/public/**"]
