@@ -1,0 +1,11 @@
+{
+  "id": "finale",
+  "title": "Congratulations!",
+  "keyword": "paco",
+  "description": "",
+  "hint": "",
+  "redirect": "http://localhost:8080",
+  "resourceName": "http://localhost:8080/marcos-bday",
+  "successMessage": "Happy birthday, Paco :)",
+  "failureMessage": ""
+}

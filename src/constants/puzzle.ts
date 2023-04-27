@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import puzzle0JSON from '../resources/puzzle-0.json'
 import puzzle1JSON from '../resources/puzzle-1.json'
 import puzzle2JSON from '../resources/puzzle-2.json'
@@ -13,8 +15,10 @@ import puzzle11JSON from '../resources/puzzle-11.json'
 import puzzle12JSON from '../resources/puzzle-12.json'
 import puzzle13JSON from '../resources/puzzle-13.json'
 import puzzle14JSON from '../resources/puzzle-14.json'
+import congrats from '../resources/congrats.json'
 
 export interface PuzzleInfo {
+  id: string
   title: string
   keyword: string
   description: string
@@ -43,5 +47,8 @@ export const puzzleInfo: PuzzleInfo[] = [
   puzzle14JSON,
 ]
 
+export const homeResource = 'index.ejs'
+export const idToPuzzle = _.fromPairs(_.map(puzzleInfo, (puzzle) => [puzzle.id, puzzle]))
 export const keywords = puzzleInfo.map(({ keyword }) => keyword)
 export const puzzleNames = puzzleInfo.map(({ title }) => title)
+export const finale = congrats

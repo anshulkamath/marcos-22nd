@@ -5,15 +5,11 @@ export interface TokenResponse {
 }
 
 export interface PlaylistResponse {
-  tracks: {
-    items: PlaylistItemRaw[]
-  }
+  items: PlaylistItemRaw[]
 }
 
 export interface PlaylistSizeResponse {
-  tracks: {
-    total: number
-  }
+  total: number
 }
 
 export interface PlaylistItemRaw {
