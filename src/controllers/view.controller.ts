@@ -1,38 +1,55 @@
 import _ from 'lodash'
 
 import { COOKIE_KEY } from 'constants/api'
-import { finale, keywords } from 'constants/puzzle'
+import {
+  finale,
+  idToPuzzle,
+  keywords,
+  mysteryPuzzle,
+  revbPuzzle,
+  memoryLanePuzzle,
+  homeResource,
+} from 'constants/puzzle'
 import { type Request, type Response } from 'express'
 
 export const getViewHandler =
-  (view: string, calcOptions?: (req: Request) => object) =>
+  (view: string, puzzleId: string, calcOptions?: (req: Request) => object) =>
   (req: Request, res: Response): void => {
-    res.render(view, calcOptions ? calcOptions(req) : undefined)
+    const cookie = _.get(req.cookies, COOKIE_KEY)
+    const expectedKeyword = idToPuzzle[puzzleId].keyword
+
+    if (keywords.indexOf(cookie) < keywords.indexOf(expectedKeyword) - 1) {
+      res.status(403).render('403', { path: req.originalUrl })
+      return
+    }
+
+    res.status(200).render(view, calcOptions ? calcOptions(req) : undefined)
   }
 
 export const getHomeViewHandler = (req: Request, res: Response): void => {
-  console.log(req.cookies)
   const cookieExpiration = 30 * 24 * 60 * 60
-  if (!_.has(req.cookies, COOKIE_KEY)) {
-    res.cookie(COOKIE_KEY, keywords[0], { maxAge: cookieExpiration })
-  }
+  const cookie = _.get(req.cookies, COOKIE_KEY)
+  res.cookie(COOKIE_KEY, cookie ?? keywords[0], { maxAge: cookieExpiration })
 
-  res.render('index.ejs', {
-    unlocked: req.headers.authorization === finale.keyword,
+  res.status(200).render(homeResource, {
+    unlocked: cookie === finale.keyword,
   })
 }
 
-export const getRSAViewHandler = getViewHandler('mystery.ejs')
-export const getRevbViewHandler = getViewHandler('revb.ejs')
-export const getMemoryLaneViewHandler = getViewHandler('memory-lane.ejs')
+export const getRSAViewHandler = getViewHandler(mysteryPuzzle.template!, mysteryPuzzle.id)
+export const getRevbViewHandler = getViewHandler(revbPuzzle.template!, revbPuzzle.id)
+export const getMemoryLaneViewHandler = getViewHandler(
+  memoryLanePuzzle.template!,
+  memoryLanePuzzle.id,
+)
 
 export const getCongratsViewHandler = (req: Request, res: Response): void => {
-  const { key } = req.query
+  const key = _.get(req.cookies, COOKIE_KEY)
 
   if (key !== finale.keyword) {
-    res.render('404', { path: req.originalUrl })
+    res.status(403).render('403', { path: req.originalUrl })
     return
   }
 
-  res.render('marcos-bday.ejs', { redirect: finale.redirect })
+  res.status(200).render('marcos-bday', { redirect: finale.redirect })
 }

@@ -1,11 +1,12 @@
 {
-  "id": "spotify",
+  "id": "memory-lane",
   "title": "Memory Lane",
-  "keyword": "bars",
+  "keyword": "paco",
   "description": "You've made it to the final puzzle! Congratulations. I've decided to reward you with a nice stroll through memory lane. Have fun :)",
   "hint": "none needed",
   "redirect": "http://localhost:8080/memory-lane",
   "resourceName": null,
   "successMessage": "Happy birthday, Paco :)",
-  "failureMessage": "That's not the right keyphrase - try entering it again?"
+  "failureMessage": "That's not the right keyphrase - try entering it again?",
+  "template": "memory-lane"
 }

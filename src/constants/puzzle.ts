@@ -27,7 +27,12 @@ export interface PuzzleInfo {
   resourceName: string | null
   successMessage: string
   failureMessage: string
+  template?: string
 }
+
+export const mysteryPuzzle: PuzzleInfo = puzzle5JSON
+export const revbPuzzle: PuzzleInfo = puzzle10JSON
+export const memoryLanePuzzle: PuzzleInfo = puzzle14JSON
 
 export const puzzleInfo: PuzzleInfo[] = [
   puzzle0JSON,
@@ -47,7 +52,7 @@ export const puzzleInfo: PuzzleInfo[] = [
   puzzle14JSON,
 ]
 
-export const homeResource = 'index.ejs'
+export const homeResource = 'index'
 export const idToPuzzle = _.fromPairs(_.map(puzzleInfo, (puzzle) => [puzzle.id, puzzle]))
 export const keywords = puzzleInfo.map(({ keyword }) => keyword)
 export const puzzleNames = puzzleInfo.map(({ title }) => title)

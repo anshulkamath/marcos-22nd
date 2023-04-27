@@ -19,6 +19,7 @@
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
         "no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }]
     },
     "ignorePatterns": ["dist/**", "src/public/**"]

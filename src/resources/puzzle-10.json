@@ -7,5 +7,6 @@
   "redirect": "http://localhost:8080/revb",
   "resourceName": null,
   "successMessage": "Looks like your Delta-E-meter is finely tuned",
-  "failureMessage": "You should go study up on your colors"
+  "failureMessage": "You should go study up on your colors",
+  "template": "revb"
 }

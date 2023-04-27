@@ -7,5 +7,6 @@
   "redirect": "http://localhost:8080/mystery",
   "resourceName": null,
   "successMessage": "Awww do you finally understand how RSA works? I guess next step is Elliptic Curves! Haha jk... unless?",
-  "failureMessage": "It was quite an involved process. I don't hold your failures against you."
+  "failureMessage": "It was quite an involved process. I don't hold your failures against you.",
+  "template": "mystery"
 }

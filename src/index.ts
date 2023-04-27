@@ -39,6 +39,7 @@ app.get('/mystery', getRSAViewHandler)
 app.get('/revb', getRevbViewHandler)
 app.get('/memory-lane', getMemoryLaneViewHandler)
 app.get('/marcos-bday', getCongratsViewHandler)
+app.get('/riggs', getCongratsViewHandler)
 
 // api
 app.get('/puzzleMetadata', getPuzzleMetadataHandler)
