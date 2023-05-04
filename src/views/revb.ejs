@@ -22,30 +22,38 @@
 <body>
   <div id="modal-container">
     <div id="modal-body">
-      <h2 class="nunito floating-animation">Welcome to Rev-b!</h1>
-      <div id="modal-text" class="nunito">
-        <p>
-          I'm sure you're familiar with the worldwide phenomenon "rugb" that snatched children away from their parents en masse in late 2022.
-          Well, I am now proud to present you with "rev-b," or "reverse rugb!"
-          This game is (eerily) similar to rugb, except it's completely different.
-          You will be presented with two colors and will be asked to guess the "delta-E" metric associated with the colors.
-          Remember, the calculation of this metric is proprietary technology, owned by Marcos D. Acosta.
-          The score for each round will be calculated as follows:
-        </p>
-        <p style="text-align: center; font-family: monospace;">
-          score = 100 - Math.abs(predicted rugb score - actual rugb score)
-        </p>
-        <p>
-          I do not claim credit for it, and my use is protected under the Fair Use Laws.
-          Do <b>NOT</b> sue me. 
-          You will be sorry.
-        </p>
-      </div>
-      <button id="modal-close" class="nunito">Let's Begin!</button>
+      <h2 id="modal-title" class="nunito floating-animation">Welcome to Rev-b!</h1>
+        <div id="modal-text" class="nunito">
+          <p>
+            I'm sure you're familiar with the worldwide phenomenon "rugb" that snatched children away from their parents
+            en masse in late 2022.
+            Well, I am now proud to present you with "rev-b," or "reverse rugb!"
+            This game is (eerily) similar to rugb, except it's completely different.
+            You will be presented with two colors and will be asked to guess the "delta-E" metric associated with the
+            colors.
+            Remember, the calculation of this metric is proprietary technology, owned by Marcos D. Acosta.
+            The score for each round will be calculated as follows:
+          </p>
+          <p style="text-align: center; font-family: monospace;">
+            score = 100 - Math.abs(predicted rugb score - actual rugb score)
+          </p>
+          <p>
+            I do not claim credit for it, and my use is protected under the Fair Use Laws.
+            Do <b>NOT</b> sue me.
+            You will be sorry.
+          </p>
+        </div>
+        <button id="modal-close" class="nunito">Let's Begin!</button>
     </div>
   </div>
   <div id="revb-game-container">
-    <div id="scoreboard"></div>
+    <div id="scoreboard-container">
+      <div id="scoreboard">
+        <h2 id="scoreboard-round" class="nunito floating-animation"></h2>
+        <h2 id="scoreboard-val" class="nunito floating-animation">Score: 0</h2>
+        <h2 id="scoreboard-diff" class="nunito"></h2>
+      </div>
+    </div>
     <div id="revb-game">
       <div id="color-box-container">
         <div id="left-color-box" class="color-box"></div>

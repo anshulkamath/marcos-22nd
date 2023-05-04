@@ -12,6 +12,7 @@ import {
 } from 'controllers/puzzle.controller'
 
 import { getSpotifySong, postSpotifySong } from 'controllers/spotify.controller'
+import { postRevbHandler } from 'controllers/revb.controller'
 import { getRSAPuzzleHandler, postRSAPuzzleHandler } from 'controllers/rsa.controller'
 
 import {
@@ -51,6 +52,8 @@ app.post('/memory-lane/api', postSpotifySong)
 
 app.get('/rsa', getRSAPuzzleHandler)
 app.post('/rsa', postRSAPuzzleHandler)
+
+app.post('/revb', postRevbHandler)
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
