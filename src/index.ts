@@ -14,6 +14,7 @@ import {
 import { getSpotifySong, postSpotifySong } from 'controllers/spotify.controller'
 import { postRevbHandler } from 'controllers/revb.controller'
 import { getRSAPuzzleHandler, postRSAPuzzleHandler } from 'controllers/rsa.controller'
+import { scavengerHuntMiddleware } from 'controllers/scavenger-hunt.controller'
 
 import {
   getHomeViewHandler,
@@ -41,6 +42,9 @@ app.get('/revb', getRevbViewHandler)
 app.get('/memory-lane', getMemoryLaneViewHandler)
 app.get('/marcos-bday', getCongratsViewHandler)
 app.get('/riggs', getCongratsViewHandler)
+
+// scavenger hunt
+app.use(scavengerHuntMiddleware)
 
 // api
 app.get('/puzzleMetadata', getPuzzleMetadataHandler)
