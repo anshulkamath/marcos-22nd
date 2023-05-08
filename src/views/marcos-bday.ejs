@@ -35,6 +35,12 @@
       margin-bottom: 2vw;
     }
   </style>
+
+  <!-- Get endpoint from .env -->
+  <div id="endpoint" data-value="<%= endpoint %>"></div>
+  <script>
+    const ENDPOINT = document.getElementById('endpoint').getAttribute('data-value')
+  </script>
 </head>
 <body>
   <h1 class="header">Happy birthday, Marcos!</h1>

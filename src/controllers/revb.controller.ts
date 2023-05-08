@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { type Response, type Request } from 'express'
 import { MAX_ROUNDS, SCORE_THRESH } from 'constants/revb'
-import { validateCookie } from 'utils/auth.util'
+import { validateCookie } from 'utils/helper.util'
 import { idToPuzzle } from 'constants/puzzle'
 
 export const postRevbHandler = (req: Request, res: Response): void => {

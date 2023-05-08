@@ -1,5 +1,7 @@
 import _ from 'lodash'
 
+import { stringTemplateParser } from 'utils/helper.util'
+
 import puzzle0JSON from '../resources/puzzle-0.json'
 import puzzle1JSON from '../resources/puzzle-1.json'
 import puzzle2JSON from '../resources/puzzle-2.json'
@@ -16,6 +18,7 @@ import puzzle12JSON from '../resources/puzzle-12.json'
 import puzzle13JSON from '../resources/puzzle-13.json'
 import puzzle14JSON from '../resources/puzzle-14.json'
 import congrats from '../resources/congrats.json'
+import { ENDPOINT } from './api'
 
 export interface PuzzleInfo {
   id: string
@@ -51,6 +54,10 @@ export const puzzleInfo: PuzzleInfo[] = [
   puzzle13JSON,
   puzzle14JSON,
 ]
+
+puzzleInfo.forEach((puzzle) => {
+  puzzle.redirect = stringTemplateParser(puzzle.redirect, { endpoint: ENDPOINT })
+})
 
 export const homeResource = 'index'
 export const idToPuzzle = _.fromPairs(_.map(puzzleInfo, (puzzle) => [puzzle.id, puzzle]))

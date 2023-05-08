@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { COOKIE_KEY } from 'constants/api'
+import { COOKIE_KEY, ENDPOINT } from 'constants/api'
 import {
   finale,
   idToPuzzle,
@@ -23,7 +23,9 @@ export const getViewHandler =
       return
     }
 
-    res.status(200).render(view, calcOptions ? calcOptions(req) : undefined)
+    const options = calcOptions ? calcOptions(req) : {}
+
+    res.status(200).render(view, { endpoint: ENDPOINT, ...options })
   }
 
 export const getHomeViewHandler = (req: Request, res: Response): void => {
@@ -32,6 +34,7 @@ export const getHomeViewHandler = (req: Request, res: Response): void => {
   res.cookie(COOKIE_KEY, cookie ?? keywords[0], { maxAge: cookieExpiration })
 
   res.status(200).render(homeResource, {
+    endpoint: ENDPOINT,
     unlocked: cookie === finale.keyword,
   })
 }
