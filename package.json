@@ -4,6 +4,7 @@
     "build": "tsc",
     "copy-resources": "cp -r puzzle-packages src/views dist/",
     "pre-run": "npm run build && npm run copy-resources && NODE_PATH=dist/ node ./dist/index.js",
+    "deploy": "sh deploy",
     "start": "source .env && npm run clean && npm run pre-run && node .",
     "clean": "rm -rf dist"
   },
