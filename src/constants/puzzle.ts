@@ -59,6 +59,11 @@ puzzleInfo.forEach((puzzle) => {
   puzzle.redirect = stringTemplateParser(puzzle.redirect, { endpoint: ENDPOINT })
 })
 
+congrats.redirect =
+  stringTemplateParser(congrats.redirect, { endpoint: ENDPOINT }) ?? congrats.redirect
+congrats.resourceName =
+  stringTemplateParser(congrats.resourceName, { endpoint: ENDPOINT }) ?? congrats.resourceName
+
 export const homeResource = 'index'
 export const idToPuzzle = _.fromPairs(_.map(puzzleInfo, (puzzle) => [puzzle.id, puzzle]))
 export const keywords = puzzleInfo.map(({ keyword }) => keyword)

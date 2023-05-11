@@ -5,7 +5,7 @@
   "description": "Let's ease into the races here with a fan favorite puzzle. You should know what to do as soon as you get it.",
   "hint": "LSB",
   "redirect": null,
-  "resourceName": "worst-detective.zip",
+  "resourceName": "worst-detective.png",
   "successMessage": "Congrats on finishing your first puzzle. You have a long way to go",
   "failureMessage": "Oh no... you're already wrong on the first puzzle. This is gonna be a long 2 weeks"
 }
