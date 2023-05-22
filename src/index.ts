@@ -22,7 +22,9 @@ import {
   getRevbViewHandler,
   getMemoryLaneViewHandler,
   getCongratsViewHandler,
+  getDanViewHandler,
 } from 'controllers/view.controller'
+import { getCrosswordHandler, postCrosswordHandler } from 'controllers/crossword.controller'
 
 const app = express()
 const port = process.env.PORT ?? 61400
@@ -37,6 +39,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 // pages
 app.get('/', getHomeViewHandler)
+app.get('/dans-surprise', getDanViewHandler)
 app.get('/mystery', getRSAViewHandler)
 app.get('/revb', getRevbViewHandler)
 app.get('/memory-lane', getMemoryLaneViewHandler)
@@ -58,6 +61,9 @@ app.get('/rsa', getRSAPuzzleHandler)
 app.post('/rsa', postRSAPuzzleHandler)
 
 app.post('/revb', postRevbHandler)
+
+app.get('/crossword', getCrosswordHandler)
+app.post('/crossword', postCrosswordHandler)
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)

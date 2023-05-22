@@ -33,6 +33,7 @@ export interface PuzzleInfo {
   template?: string
 }
 
+export const dansSurprise: PuzzleInfo = puzzle4JSON
 export const mysteryPuzzle: PuzzleInfo = puzzle5JSON
 export const revbPuzzle: PuzzleInfo = puzzle10JSON
 export const memoryLanePuzzle: PuzzleInfo = puzzle14JSON

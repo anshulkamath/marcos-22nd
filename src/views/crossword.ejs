@@ -1,0 +1,38 @@
+<head>
+  <title>Dan's Surprise</title>
+  <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Nunito:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+  >
+  <link type="text/css" rel="stylesheet" href="css/crossword.css">
+
+   <!-- Get endpoint from .env -->
+   <div id="endpoint" data-value="<%= endpoint %>"></div>
+   <script>
+     const ENDPOINT = document.getElementById('endpoint').getAttribute('data-value')
+   </script>
+</head>
+<body>
+  <div id="root-container">
+    <h1 id="title" class="mono">Dan's Surprise</h1>
+    <div id="game-container">
+      <div id="crossword-container">
+      </div>
+      <div id="clues">
+        <div id="across" class="clue-container">
+          <div class="clue-header">Across:</div>
+          <div id="across-list" class="clue-list">
+          </div>
+        </div>
+        <div id="down" class="clue-container">
+          <div class="clue-header">Down:</div>
+          <div id="down-list" class="clue-list">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/crossword.js"></script>
+</body>

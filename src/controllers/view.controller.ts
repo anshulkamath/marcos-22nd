@@ -9,6 +9,7 @@ import {
   revbPuzzle,
   memoryLanePuzzle,
   homeResource,
+  dansSurprise,
 } from 'constants/puzzle'
 import { type Request, type Response } from 'express'
 
@@ -39,6 +40,7 @@ export const getHomeViewHandler = (req: Request, res: Response): void => {
   })
 }
 
+export const getDanViewHandler = getViewHandler(dansSurprise.template!, dansSurprise.id)
 export const getRSAViewHandler = getViewHandler(mysteryPuzzle.template!, mysteryPuzzle.id)
 export const getRevbViewHandler = getViewHandler(revbPuzzle.template!, revbPuzzle.id)
 export const getMemoryLaneViewHandler = getViewHandler(
