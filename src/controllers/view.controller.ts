@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { COOKIE_KEY, ENDPOINT } from 'constants/api'
+import { COOKIE_KEY, DEBUG_MODE, ENDPOINT } from 'constants/api'
 import {
   finale,
   idToPuzzle,
@@ -36,6 +36,7 @@ export const getHomeViewHandler = (req: Request, res: Response): void => {
 
   res.status(200).render(homeResource, {
     endpoint: ENDPOINT,
+    debug: DEBUG_MODE,
     unlocked: cookie === finale.keyword,
   })
 }

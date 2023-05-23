@@ -18,9 +18,10 @@
     rel="stylesheet">
 
   <!-- Get endpoint from .env -->
-  <div id="endpoint" data-value="<%= endpoint %>"></div>
+  <div id="endpoint" data-endpoint="<%= endpoint %>" data-debug="<%= debug %>"></div>
   <script>
-    const ENDPOINT = document.getElementById('endpoint').getAttribute('data-value')
+    const ENDPOINT = document.getElementById('endpoint').getAttribute('data-endpoint')
+    const DEBUG = document.getElementById('endpoint').getAttribute('data-debug')
   </script>
 </head>
 <body>
@@ -52,6 +53,10 @@
           <img class="carousel-image" src="resources/marcos-homescreen/marcos-5.jpeg" height="100%">
           <img class="carousel-image" src="resources/marcos-homescreen/marcos-6.jpeg" height="100%">
           <img class="carousel-image" src="resources/marcos-homescreen/marcos-7.jpeg" height="100%">
+          <img class="carousel-image" src="resources/marcos-homescreen/marcos-8.jpeg" height="100%">
+          <img class="carousel-image" src="resources/marcos-homescreen/marcos-9.jpeg" height="100%">
+          <img class="carousel-image" src="resources/marcos-homescreen/marcos-10.jpeg" height="100%">
+          <img class="carousel-image" src="resources/marcos-homescreen/marcos-11.jpeg" height="100%">
         </div>
       </div>
       <div id="marcos-blurb" class="nunito">
@@ -64,9 +69,10 @@
         </p>
         <p>
           You see, this is no ordinary Marcos birthday present.
-          I have gone through the extended toil of making sure that this birthday spectacular is one for the ages.
-          Below, you will be faced with a series of Herculean tasks designed to make you fail.
-          If you somehow find a way to pass all these tests, you will (probably) be rewarded accordingly.
+          I have gone through the incredible effort of making sure that this birthday spectacular is one for the ages.
+          During the course of the past three months*, I have crafted the most elaborate present of your life, which are slated to start on June 1, 2023.
+          Below, you will be faced with a series of Herculean tasks designed to make you FAIL**.
+          If you somehow find a way to pass all these tests, you will (probably, I haven't decided how yet) be rewarded accordingly.
         </p>
         <p>
           Below, you will notice that there is a calendar enumerating all the days between June 1, 2023 and June 14, 2023.
@@ -75,6 +81,10 @@
           Hence, I have added some extra protection for both of our sakes - you can only continue to the next day of the calendar under two conditions:<br>
           &emsp;&emsp;1. You have successfully completed the previous challenge and submitted the code, and<br>
           &emsp;&emsp;2. It has passed 12 am (EST) on the given day.
+        </p>
+        <p>
+          *Remember how I said that I should "get started" on your birthday present in Waterton Lakes? Yeah, I lied. I started after spring break. <br/>
+          **Honestly, I feel sorry for you.
         </p>
       </div>
     </div>
