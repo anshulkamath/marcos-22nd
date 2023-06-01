@@ -26,7 +26,7 @@ import {
   getDanViewHandler,
 } from 'controllers/view.controller'
 import { getCrosswordHandler, postCrosswordHandler } from 'controllers/crossword.controller'
-import { FILE_ERROR_NAME, FILE_LOG_NAME, createLogWrapper, createWriteStream } from 'constants/file'
+import { FILE_ERROR_NAME, FILE_LOG_NAME, createLogWrapper, createWriteStream } from 'constants/log'
 
 declare global {
   var appRoot: string
