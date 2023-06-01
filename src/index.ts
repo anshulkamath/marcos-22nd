@@ -1,11 +1,10 @@
+/* eslint-disable no-var */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import fs from 'fs'
 import path from 'path'
-import util from 'util'
 
 import {
   getPuzzleMetadataHandler,
@@ -27,22 +26,16 @@ import {
   getDanViewHandler,
 } from 'controllers/view.controller'
 import { getCrosswordHandler, postCrosswordHandler } from 'controllers/crossword.controller'
-import { FILE_ERROR_NAME, FILE_LOG_NAME, LOG_PATH } from 'constants/file'
+import { FILE_ERROR_NAME, FILE_LOG_NAME, createLogWrapper, createWriteStream } from 'constants/file'
 
-const accessFile = fs.createWriteStream(path.join(__dirname, LOG_PATH, FILE_LOG_NAME), {
-  flags: 'a+',
-})
-const errorFile = fs.createWriteStream(path.join(__dirname, LOG_PATH, FILE_ERROR_NAME), {
-  flags: 'a+',
-})
-
-console.log = function (d) {
-  accessFile.write(util.format(d) + '\n')
+declare global {
+  var appRoot: string
 }
 
-console.error = function (d) {
-  errorFile.write(util.format(d) + '\n')
-}
+global.appRoot = path.resolve(__dirname)
+
+console.log = createLogWrapper(createWriteStream(FILE_LOG_NAME))
+console.error = createLogWrapper(createWriteStream(FILE_ERROR_NAME))
 
 const app = express()
 const port = process.env.PORT ?? 61400
