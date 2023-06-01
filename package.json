@@ -7,7 +7,7 @@
     "deploy": "source .env && rsync -av --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
     "start-deploy": "tmux kill-session && tmux new-session -s marcos-22nd -d npm start",
     "start": "source ./.env && npm run clean && npm run pre-run && node .",
-    "clean": "mkdir dist-temp && cp -r dist/logs dist-temp && rm -rf dist && mv dist-temp dist"
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",

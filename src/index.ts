@@ -32,7 +32,7 @@ declare global {
   var appRoot: string
 }
 
-global.appRoot = path.resolve(__dirname)
+global.appRoot = path.join(__dirname, '..')
 
 console.log = createLogWrapper(createWriteStream(FILE_LOG_NAME))
 console.error = createLogWrapper(createWriteStream(FILE_ERROR_NAME))
