@@ -3,7 +3,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import fs from 'fs'
 import path from 'path'
+import util from 'util'
 
 import {
   getPuzzleMetadataHandler,
@@ -25,6 +27,22 @@ import {
   getDanViewHandler,
 } from 'controllers/view.controller'
 import { getCrosswordHandler, postCrosswordHandler } from 'controllers/crossword.controller'
+import { FILE_ERROR_NAME, FILE_LOG_NAME, LOG_PATH } from 'constants/file'
+
+const accessFile = fs.createWriteStream(path.join(__dirname, LOG_PATH, FILE_LOG_NAME), {
+  flags: 'w',
+})
+const errorFile = fs.createWriteStream(path.join(__dirname, LOG_PATH, FILE_ERROR_NAME), {
+  flags: 'w',
+})
+
+console.log = function (d) {
+  accessFile.write(util.format(d) + '\n')
+}
+
+console.error = function (d) {
+  errorFile.write(util.format(d) + '\n')
+}
 
 const app = express()
 const port = process.env.PORT ?? 61400
