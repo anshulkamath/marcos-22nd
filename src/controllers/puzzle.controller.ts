@@ -82,6 +82,8 @@ export const postPuzzleHandler = (req: Request, res: Response): void => {
     return
   }
 
+  console.log(`Puzzle ${keywordIdx + 1} has been solved!`)
+
   res.status(200).send({
     message: puzzleInfo[keywordIdx + 1].successMessage,
   })
