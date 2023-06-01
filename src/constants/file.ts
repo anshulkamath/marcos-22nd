@@ -13,6 +13,6 @@ export const createWriteStream = (filename: string): fs.WriteStream =>
   })
 
 export const createLogWrapper = (writeStream: fs.WriteStream) => (d: any) => {
-  const date = DateTime.now().toFormat('EEE, LL/dd/yyyy@HH:mm:ss.SSS')
+  const date = DateTime.now().toFormat('[LL/dd/yyyy@HH:mm:ss.SSS]')
   writeStream.write(`${date}: ${util.format(d)}\n`)
 }

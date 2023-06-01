@@ -15,12 +15,17 @@ const getPuzzleId = (req: Request, res: Response): string => {
   return cookie.replaceAll('%20', ' ')
 }
 
+const getIPAddress = (remoteAddress: string): string =>
+  remoteAddress.substring(remoteAddress.lastIndexOf(':') + 1)
+
 export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
   const puzzleId = getPuzzleId(req, res)
   const puzzleIndex = keywords.indexOf(puzzleId)
 
   console.log(
-    `IP ${req.socket.remoteAddress} attempting to fetch metadata using keyword ${puzzleId}`,
+    `${getIPAddress(
+      req.socket.remoteAddress ?? '??',
+    )} attempting to fetch metadata using keyword ${puzzleId}`,
   )
 
   if (puzzleId === finale.keyword) {
@@ -75,17 +80,23 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 
   const resourceDir = path.join(__dirname, '..', 'puzzle-packages', resourceName)
   console.log(
-    `IP ${req.socket.remoteAddress} attempting to get puzzle ${puzzleId} located at ${resourceDir}`,
+    `${getIPAddress(
+      req.socket.remoteAddress ?? '??',
+    )} attempting to get puzzle ${puzzleId} located at ${resourceDir}`,
   )
   res.status(200).download(resourceDir, (err) => {
     if (err) {
       console.error(
-        `IP ${req.socket.remoteAddress} had was an error downloading the requested files: ${err}`,
+        `${getIPAddress(
+          req.socket.remoteAddress ?? '??',
+        )} had was an error downloading the requested files: ${err}`,
       )
       return
     }
 
-    console.log(`IP ${req.socket.remoteAddress} successfully got resource ${resourceDir}`)
+    console.log(
+      `${getIPAddress(req.socket.remoteAddress ?? '??')} successfully got resource ${resourceDir}`,
+    )
   })
 }
 
@@ -101,7 +112,9 @@ export const postPuzzleHandler = (req: Request, res: Response): void => {
     return
   }
 
-  console.log(`IP ${req.socket.remoteAddress} has solved puzzle ${keywordIdx + 1}!`)
+  console.log(
+    `${getIPAddress(req.socket.remoteAddress ?? '??')} has solved puzzle ${keywordIdx + 1}!`,
+  )
 
   res.status(200).send({
     message: puzzleInfo[keywordIdx + 1].successMessage,
