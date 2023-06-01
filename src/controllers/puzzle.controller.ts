@@ -15,7 +15,7 @@ const getPuzzleId = (req: Request, res: Response): string => {
   return cookie.replaceAll('%20', ' ')
 }
 
-const getIPAddress = (remoteAddress: string): string =>
+const getIPAddress = (remoteAddress: string = '??'): string =>
   remoteAddress.substring(remoteAddress.lastIndexOf(':') + 1)
 
 export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
@@ -34,6 +34,7 @@ export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
   }
 
   if (puzzleIndex === -1) {
+    console.error(`${getIPAddress(req.socket.remoteAddress)} gave an invalid keyword: ${puzzleId}`)
     res.status(400).send({
       error: 'An invalid keyword was given',
     })
@@ -56,6 +57,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
   }
 
   if (!puzzleId) {
+    console.error(`${getIPAddress(req.socket.remoteAddress)} did not give puzzle id`)
     res.status(400).send({
       message: 'Puzzle id was not given.',
     })
@@ -64,6 +66,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 
   const puzzleIndex = Number.parseInt(day as string)
   if (puzzleIndex < 0 || puzzleIndex > keywords.indexOf(puzzleId) + 1) {
+    console.error(`Incorrect puzzle id give: ${puzzleId}`)
     res.status(400).send({
       message: 'Incorrect puzzle id given',
     })
@@ -72,6 +75,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 
   const { resourceName } = puzzleInfo[puzzleIndex]
   if (!resourceName) {
+    console.error(`Failed to get resource ${resourceName}`)
     res.status(500).send({
       message: 'Resource unavailable. Please try again later.',
     })
@@ -95,7 +99,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
     }
 
     console.log(
-      `${getIPAddress(req.socket.remoteAddress ?? '??')} successfully got resource ${resourceDir}`,
+      `${getIPAddress(req.socket.remoteAddress)} successfully got resource ${resourceDir}`,
     )
   })
 }
@@ -106,6 +110,9 @@ export const postPuzzleHandler = (req: Request, res: Response): void => {
   const keywordIdx = keywords.indexOf(puzzleId)
 
   if (keywords.indexOf(guess) !== keywordIdx + 1) {
+    console.log(
+      `${getIPAddress(req.socket.remoteAddress)} submitted the wrong keyword guess: ${guess}`,
+    )
     res.status(400).send({
       message: puzzleInfo[keywordIdx + 1].failureMessage,
     })
