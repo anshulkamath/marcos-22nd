@@ -1,12 +1,25 @@
 import _ from 'lodash'
 import { type Request, type Response } from 'express'
 import path from 'path'
-import { GET_PUZZLE_NAMES_QUERY } from '../constants/api'
+import { COOKIE_KEY, GET_PUZZLE_NAMES_QUERY } from '../constants/api'
 import { finale, keywords, puzzleInfo, puzzleNames } from '../constants/puzzle'
 
+const getPuzzleId = (req: Request, res: Response): string => {
+  let cookie = _.get(req.cookies, 'marcos-22nd')
+
+  if (!cookie) {
+    cookie = keywords[0]
+    res.cookie(COOKIE_KEY, cookie)
+  }
+
+  return cookie.replaceAll('%20', ' ')
+}
+
 export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
-  const puzzleId = _.get(req.cookies, 'marcos-22nd')
-  const puzzleIndex = keywords.indexOf(puzzleId as string)
+  const puzzleId = getPuzzleId(req, res)
+  const puzzleIndex = keywords.indexOf(puzzleId)
+
+  console.log(`Attempting to fetch metadata using keyword ${puzzleId}`)
 
   if (puzzleId === finale.keyword) {
     res.status(200).send({ puzzleInfo })
@@ -26,8 +39,8 @@ export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
 }
 
 export const getPuzzleHandler = (req: Request, res: Response): void => {
+  const puzzleId = getPuzzleId(req, res)
   const { field } = req.query
-  const puzzleId = _.get(req.cookies, 'marcos-22nd')
   const { day } = req.query
 
   if (field === GET_PUZZLE_NAMES_QUERY) {
@@ -71,9 +84,9 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 }
 
 export const postPuzzleHandler = (req: Request, res: Response): void => {
-  const puzzleId = _.get(req.cookies, 'marcos-22nd')
+  const puzzleId = getPuzzleId(req, res)
   const { keyword: guess } = req.body
-  const keywordIdx = keywords.indexOf(puzzleId as string)
+  const keywordIdx = keywords.indexOf(puzzleId)
 
   if (keywords.indexOf(guess) !== keywordIdx + 1) {
     res.status(400).send({

@@ -30,10 +30,10 @@ import { getCrosswordHandler, postCrosswordHandler } from 'controllers/crossword
 import { FILE_ERROR_NAME, FILE_LOG_NAME, LOG_PATH } from 'constants/file'
 
 const accessFile = fs.createWriteStream(path.join(__dirname, LOG_PATH, FILE_LOG_NAME), {
-  flags: 'a',
+  flags: 'a+',
 })
 const errorFile = fs.createWriteStream(path.join(__dirname, LOG_PATH, FILE_ERROR_NAME), {
-  flags: 'a',
+  flags: 'a+',
 })
 
 console.log = function (d) {

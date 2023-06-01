@@ -5,7 +5,7 @@
     "copy-resources": "cp -r puzzle-packages src/views dist/",
     "pre-run": "npm run build && npm run copy-resources && mkdir dist/logs && NODE_PATH=dist/ node ./dist/index.js",
     "deploy": "source .env && rsync -av --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
-    "start-deploy": "tmux new-session -s marcos-22nd -d npm start",
+    "start-deploy": "tmux kill-session && tmux new-session -s marcos-22nd -d npm start",
     "start": "source ./.env && npm run clean && npm run pre-run && node .",
     "clean": "rm -rf dist"
   },
