@@ -9,7 +9,7 @@ export const FILE_ERROR_NAME = 'node.error.log'
 
 export const createWriteStream = (filename: string): fs.WriteStream =>
   fs.createWriteStream(path.join(global.appRoot, LOG_PATH, filename), {
-    flags: 'a+',
+    flags: 'a',
   })
 
 export const createLogWrapper = (writeStream: fs.WriteStream) => (d: any) => {

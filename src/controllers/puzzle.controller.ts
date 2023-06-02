@@ -1,25 +1,14 @@
 import _ from 'lodash'
 import { type Request, type Response } from 'express'
 import path from 'path'
-import { COOKIE_KEY, GET_PUZZLE_NAMES_QUERY } from '../constants/api'
+import { GET_PUZZLE_NAMES_QUERY } from '../constants/api'
 import { finale, keywords, puzzleInfo, puzzleNames } from '../constants/puzzle'
-
-const getPuzzleId = (req: Request, res: Response): string => {
-  let cookie = _.get(req.cookies, 'marcos-22nd')
-
-  if (!cookie) {
-    cookie = keywords[0]
-    res.cookie(COOKIE_KEY, cookie)
-  }
-
-  return cookie.replaceAll('%20', ' ')
-}
 
 const getIPAddress = (remoteAddress: string = '??'): string =>
   remoteAddress.substring(remoteAddress.lastIndexOf(':') + 1)
 
 export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
-  const puzzleId = getPuzzleId(req, res)
+  const puzzleId = _.get(req, 'headers.authorization', keywords[0])
   const puzzleIndex = keywords.indexOf(puzzleId)
 
   console.log(
@@ -47,7 +36,7 @@ export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
 }
 
 export const getPuzzleHandler = (req: Request, res: Response): void => {
-  const puzzleId = getPuzzleId(req, res)
+  const puzzleId = _.get(req, 'headers.authorization', keywords[0])
   const { field } = req.query
   const { day } = req.query
 
@@ -105,7 +94,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 }
 
 export const postPuzzleHandler = (req: Request, res: Response): void => {
-  const puzzleId = getPuzzleId(req, res)
+  const puzzleId = _.get(req, 'headers.authorization', keywords[0])
   const { keyword: guess } = req.body
   const keywordIdx = keywords.indexOf(puzzleId)
 
