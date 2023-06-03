@@ -6,7 +6,7 @@
   "hint": "Do the crossword fam",
   "redirect": "{{endpoint}}/dans-surprise",
   "resourceName": null,
-  "successMessage": "You finished Dan's crossword! I guess some would say that... Dan went... down... :D",
+  "successMessage": "You finished Dan's crossword! I guess you could say that... Dan went... down... :D",
   "failureMessage": "It's okay - Dan's crossword IQ is way above ours.",
   "template": "crossword"
 }

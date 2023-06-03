@@ -4,9 +4,9 @@
     "build": "tsc",
     "copy-resources": "cp -r puzzle-packages src/views dist/",
     "pre-run": "npm run build && npm run copy-resources && mkdir -p dist && NODE_PATH=dist/ node ./dist/index.js",
-    "pre-deploy": "source .env && rsync -av --exclude='logs' --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
+    "pre-deploy": "source .env && rsync -av --exclude='.env' --exclude='logs' --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
     "post-deploy": "tmux kill-session && tmux new-session -s marcos-22nd -d npm start",
-    "deploy": "npm run pre-deploy && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-deploy'",
+    "deploy": "source ./.env && npm run pre-deploy && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-deploy'",
     "start": "source ./.env && npm run clean && npm run pre-run && node .",
     "clean": "rm -rf dist"
   },
