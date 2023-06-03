@@ -14,7 +14,7 @@ export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
   console.log(
     `${getIPAddress(
       req.socket.remoteAddress ?? '??',
-    )} attempting to fetch metadata using keyword ${puzzleId}`,
+    )} attempting to fetch metadata using keyword '${puzzleId}'`,
   )
 
   if (puzzleId === finale.keyword) {

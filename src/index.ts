@@ -77,5 +77,5 @@ app.get('/crossword', getCrosswordHandler)
 app.post('/crossword', postCrosswordHandler)
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`)
+  console.log('Server started')
 })
