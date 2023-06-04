@@ -14,7 +14,7 @@ import {
 import { type Request, type Response } from 'express'
 
 export const getViewHandler =
-  (view: string, puzzleId: string, calcOptions?: (req: Request) => object) =>
+  (view: string, puzzleId: string, options?: any) =>
   (req: Request, res: Response): void => {
     const id = _.get(req, 'query.keyword', keywords[0]) as string
     const expectedKeyword = idToPuzzle[puzzleId].keyword
@@ -23,8 +23,6 @@ export const getViewHandler =
       res.status(403).render('403', { path: req.originalUrl })
       return
     }
-
-    const options = calcOptions ? calcOptions(req) : {}
 
     res.status(200).render(view, { endpoint: ENDPOINT, ...options })
   }
@@ -40,7 +38,9 @@ export const getHomeViewHandler = (req: Request, res: Response): void => {
 }
 
 export const getDanViewHandler = getViewHandler(dansSurprise.template!, dansSurprise.id)
-export const getRSAViewHandler = getViewHandler(mysteryPuzzle.template!, mysteryPuzzle.id)
+export const getRSAViewHandler = getViewHandler(mysteryPuzzle.template!, mysteryPuzzle.id, {
+  link: process.env.RSA_PRESENTATION_LINK,
+})
 export const getRevbViewHandler = getViewHandler(revbPuzzle.template!, revbPuzzle.id)
 export const getMemoryLaneViewHandler = getViewHandler(
   memoryLanePuzzle.template!,

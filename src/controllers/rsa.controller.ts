@@ -5,7 +5,6 @@ export const getRSAPuzzleHandler = (req: Request, res: Response): void => {
   try {
     res.setHeader('Authorization', '0x314fb9')
     res.status(200).send({
-      link: process.env.RSA_PRESENTATION_LINK,
       N: '0x776b91',
       encryptedMessage: '0x4e8f84',
     })
