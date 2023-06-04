@@ -4,8 +4,9 @@ import path from 'path'
 import util from 'util'
 
 export const LOG_PATH = 'logs'
-export const FILE_LOG_NAME = 'node.access.log'
-export const FILE_ERROR_NAME = 'node.error.log'
+export const LOG_NAME = process.env.LOG_NAME ?? 'node'
+export const FILE_LOG_NAME = `${LOG_NAME}.access.log`
+export const FILE_ERROR_NAME = `${LOG_NAME}.error.log`
 
 export const createWriteStream = (filename: string): fs.WriteStream =>
   fs.createWriteStream(path.join(global.appRoot, LOG_PATH, filename), {
