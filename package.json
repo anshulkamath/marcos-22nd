@@ -4,10 +4,16 @@
     "build": "tsc",
     "copy-resources": "cp -r puzzle-packages src/views dist/",
     "pre-run": "npm run build && npm run copy-resources && mkdir -p dist && NODE_PATH=dist/ node ./dist/index.js",
-    "pre-deploy": "source .env && rsync -av --exclude='.env' --exclude='logs' --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
-    "post-deploy": "tmux kill-session && tmux new-session -s marcos-22nd -d npm start",
-    "deploy": "source ./.env && npm run pre-deploy && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-deploy'",
-    "start": "source ./.env && npm run clean && npm run pre-run && node .",
+    
+    "debug": "source envs/debug.env && npm run clean && npm run pre-run && node .",
+    "post-debug": "tmux kill-session -t marcos-22nd-debug && tmux new-session -s marcos-22nd-debug -d npm run debug",
+    "deploy-debug": "source envs/debug.env && npm run pre-deploy && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-debug'",
+    
+    "pre-deploy": "source envs/prod.env && rsync -av --exclude='envs' --exclude='logs' --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
+    "post-deploy": "tmux kill-session -t marcos-22nd && tmux new-session -s marcos-22nd -d npm start",
+    "deploy": "source envs/prod.env && npm run pre-deploy && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-deploy'",
+    
+    "start": "source envs/prod.env && npm run clean && npm run pre-run && node .",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
