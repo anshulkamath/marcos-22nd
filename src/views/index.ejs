@@ -19,13 +19,17 @@
     rel="stylesheet">
 
   <!-- Get endpoint from .env -->
-  <div id="endpoint" data-endpoint="<%= endpoint %>" data-debug="<%= debug %>"></div>
+  <div id="endpoint" data-endpoint="<%= endpoint %>"></div>
   <script>
     const ENDPOINT = document.getElementById('endpoint').getAttribute('data-endpoint')
-    const debug = window.localStorage.getItem('marcos-22nd-debug')
-    const DEBUG = document.getElementById('endpoint').getAttribute('data-debug')
-    const isDebugMode = () => debug === DEBUG
   </script>
+  <% if (DEBUG_MODE) { %>
+    <script>
+      const debug = window.localStorage.getItem('marcos-22nd-debug')
+      const DEBUG = 'debubby'
+      const isDebugMode = () => debug === DEBUG
+    </script>
+  <% } %>
 </head>
 <body>
   <div id="modal-container">

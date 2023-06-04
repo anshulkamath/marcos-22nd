@@ -34,8 +34,8 @@ export const getHomeViewHandler = (req: Request, res: Response): void => {
 
   res.status(200).render(homeResource, {
     endpoint: ENDPOINT,
-    debug: DEBUG_MODE,
     unlocked: puzzleId === finale.keyword,
+    debug_mode: DEBUG_MODE,
   })
 }
 
