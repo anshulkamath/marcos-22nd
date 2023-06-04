@@ -4,4 +4,4 @@ export const COOKIE_KEY = 'marcos-22nd'
 const DEFAULT_ENDPOINT = 'http://localhost:8080'
 export const ENDPOINT = process.env.ENDPOINT ?? DEFAULT_ENDPOINT
 
-export const DEBUG_MODE = process.env.DEBUG === 'true'
+export const DEBUG_MODE = process.env.DEBUG ?? ''

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { COOKIE_KEY, DEBUG_MODE, ENDPOINT } from 'constants/api'
+import { DEBUG_MODE, ENDPOINT } from 'constants/api'
 import {
   finale,
   idToPuzzle,
@@ -16,10 +16,10 @@ import { type Request, type Response } from 'express'
 export const getViewHandler =
   (view: string, puzzleId: string, calcOptions?: (req: Request) => object) =>
   (req: Request, res: Response): void => {
-    const cookie = _.get(req.cookies, COOKIE_KEY)
+    const id = _.get(req, 'query.keyword', keywords[0]) as string
     const expectedKeyword = idToPuzzle[puzzleId].keyword
 
-    if (keywords.indexOf(cookie) < keywords.indexOf(expectedKeyword) - 1) {
+    if (keywords.indexOf(id) < keywords.indexOf(expectedKeyword) - 1) {
       res.status(403).render('403', { path: req.originalUrl })
       return
     }
@@ -30,14 +30,12 @@ export const getViewHandler =
   }
 
 export const getHomeViewHandler = (req: Request, res: Response): void => {
-  const cookieExpiration = 30 * 24 * 60 * 60
-  const cookie = _.get(req.cookies, COOKIE_KEY)
-  res.cookie(COOKIE_KEY, cookie ?? keywords[0], { maxAge: cookieExpiration })
+  const puzzleId = _.get(req, 'query.keyword', keywords[0])
 
   res.status(200).render(homeResource, {
     endpoint: ENDPOINT,
     debug: DEBUG_MODE,
-    unlocked: cookie === finale.keyword,
+    unlocked: puzzleId === finale.keyword,
   })
 }
 
@@ -50,7 +48,7 @@ export const getMemoryLaneViewHandler = getViewHandler(
 )
 
 export const getCongratsViewHandler = (req: Request, res: Response): void => {
-  const key = _.get(req.cookies, COOKIE_KEY)
+  const key = _.get(req, 'query.keyword', keywords[0])
 
   if (key !== finale.keyword) {
     res.status(403).render('403', { path: req.originalUrl })

@@ -22,7 +22,9 @@
   <div id="endpoint" data-endpoint="<%= endpoint %>" data-debug="<%= debug %>"></div>
   <script>
     const ENDPOINT = document.getElementById('endpoint').getAttribute('data-endpoint')
+    const debug = window.localStorage.getItem('marcos-22nd-debug')
     const DEBUG = document.getElementById('endpoint').getAttribute('data-debug')
+    const isDebugMode = () => debug === DEBUG
   </script>
 </head>
 <body>
