@@ -26,7 +26,7 @@ export const postCrosswordHandler = (req: Request, res: Response): void => {
   // const puzzleId = _.get(req, 'headers.authorization', keywords[0])
   const { solution: attempt } = req.body
 
-  console.log(attempt)
+  console.log(`${req.socket.remoteAddress}: ${attempt}`)
 
   // if (!validateCookie(puzzleId, dansSurprise.id)) {
   //   res.status(403).send({ error: 'You are not yet authorized to access this resource.' })
