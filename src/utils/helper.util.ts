@@ -21,3 +21,6 @@ export const stringTemplateParser = (expression: string | null, valueObj: any): 
 
   return text
 }
+
+export const getIPAddress = (remoteAddress: string = '??'): string =>
+  remoteAddress.substring(remoteAddress.lastIndexOf(':') + 1)

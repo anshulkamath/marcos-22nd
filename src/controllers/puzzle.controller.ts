@@ -3,9 +3,7 @@ import { type Request, type Response } from 'express'
 import path from 'path'
 import { GET_PUZZLE_NAMES_QUERY } from '../constants/api'
 import { finale, keywords, puzzleInfo, puzzleNames } from '../constants/puzzle'
-
-const getIPAddress = (remoteAddress: string = '??'): string =>
-  remoteAddress.substring(remoteAddress.lastIndexOf(':') + 1)
+import { getIPAddress } from 'utils/helper.util'
 
 export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
   const puzzleId = _.get(req, 'headers.authorization', keywords[0])
