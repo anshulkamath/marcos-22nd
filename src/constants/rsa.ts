@@ -1,0 +1,5 @@
+export const n = '0x776b91'
+export const encryptedMessage = '0x4e8f84'
+export const publicKey = '0x314fb9'
+export const privateKey = '0x1ba2c1'
+export const solution = 'pog'

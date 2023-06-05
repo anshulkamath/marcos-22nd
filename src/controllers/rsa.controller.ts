@@ -1,12 +1,15 @@
+import _ from 'lodash'
 import { type Request, type Response } from 'express'
 import { catchError } from '../utils/error.util'
+import { getIPAddress } from 'utils/helper.util'
+import { publicKey, privateKey, n, encryptedMessage, solution } from 'constants/rsa'
 
 export const getRSAPuzzleHandler = (req: Request, res: Response): void => {
   try {
-    res.setHeader('Authorization', '0x314fb9')
+    res.setHeader('Authorization', publicKey)
     res.status(200).send({
-      N: '0x776b91',
-      encryptedMessage: '0x4e8f84',
+      n,
+      encryptedMessage,
     })
   } catch (e) {
     catchError(e, (e) => {
@@ -18,24 +21,30 @@ export const getRSAPuzzleHandler = (req: Request, res: Response): void => {
 }
 
 export const postRSAPuzzleHandler = (req: Request, res: Response): void => {
-  const { authorization: privateKey } = req.headers
-  const { solution } = req.body
+  const d = _.get(req, 'headers.authorization', '').match(/0x[0-9a-fA-F]+/)?.input ?? ''
+  const { solution: guess } = req.body
 
   const errors: string[] = []
   try {
-    if (privateKey === undefined) {
+    if (d === undefined) {
       errors.push('Error: No `Authorization` header was passed. Unable to verify private key.')
       res.status(400).send({ error: true, message: errors[0] })
       return
     }
 
-    if (privateKey !== '0x1ba2c1') {
+    console.log(
+      `${getIPAddress(
+        req.socket.remoteAddress,
+      )}: attempted to solve with private key '${d}' and solution ${guess}`,
+    )
+
+    if (d !== privateKey) {
       errors.push('Error: The wrong private key was given.')
     }
 
-    if (solution === undefined) {
-      errors.push('Error: No solution field was given to the solution')
-    } else if (solution !== 'pog') {
+    if (guess === undefined) {
+      errors.push('Error: No `solution` field was given to the solution')
+    } else if (guess !== solution) {
       errors.push('Error: The decrypted message was not correct.')
     }
 
@@ -50,7 +59,7 @@ export const postRSAPuzzleHandler = (req: Request, res: Response): void => {
 
     res.status(200).send({
       error: false,
-      solution: 'who me?',
+      keyword: 'who me?',
     })
   } catch (e) {
     catchError(e, (e) => {
