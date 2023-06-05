@@ -21,7 +21,7 @@ export const getRSAPuzzleHandler = (req: Request, res: Response): void => {
 }
 
 export const postRSAPuzzleHandler = (req: Request, res: Response): void => {
-  const d = _.get(req, 'headers.authorization', '').match(/0x[0-9a-fA-F]+/)?.input ?? ''
+  const d = _.get(req, 'headers.authorization', undefined)
   const { solution: guess } = req.body
 
   const errors: string[] = []
@@ -38,7 +38,7 @@ export const postRSAPuzzleHandler = (req: Request, res: Response): void => {
       )}: attempted to solve with private key '${d}' and solution ${guess}`,
     )
 
-    if (d !== privateKey) {
+    if (!d.includes(privateKey)) {
       errors.push('Error: The wrong private key was given.')
     }
 
