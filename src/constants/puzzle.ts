@@ -67,6 +67,6 @@ congrats.resourceName =
 
 export const homeResource = 'index'
 export const idToPuzzle = _.fromPairs(_.map(puzzleInfo, (puzzle) => [puzzle.id, puzzle]))
-export const keywords = puzzleInfo.map(({ keyword }) => keyword)
+export const keywords = puzzleInfo.map(({ keyword }) => keyword.toLowerCase())
 export const puzzleNames = puzzleInfo.map(({ title }) => title)
 export const finale = congrats
