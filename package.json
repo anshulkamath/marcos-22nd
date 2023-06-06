@@ -3,18 +3,21 @@
   "scripts": {
     "copy-resources": "cp -r puzzle-packages src/views dist/",
     "build": "tsc && npm run copy-resources && mkdir -p dist",
+    "sync-remote": "source envs/deploy.env && rsync -av --exclude='envs' --exclude='logs' --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
+    "build-remote": "source envs/deploy.env && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run build'",
     "pre-run": "NODE_PATH=dist/ node ./dist/index.js",
-    "pre-deploy": "source envs/deploy.env && rsync -av --exclude='envs' --exclude='logs' --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
+
+    "pre-deploy": "npm run sync-remote && npm run build-remote",
     
     "debug": "source envs/debug.env && npm start",
     "post-debug": "tmux kill-session -t marcos-22nd-debug && tmux new-session -s marcos-22nd-debug -d npm run debug",
-    "deploy-debug": "source envs/debug.env && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-debug'",
+    "deploy-debug": "source envs/debug.env && npm run pre-deploy && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-debug'",
     
     "prod": "source envs/prod.env && npm start",
     "post-prod": "tmux kill-session -t marcos-22nd && tmux new-session -s marcos-22nd -d npm run prod",
-    "deploy-prod": "source envs/prod.env && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-prod'",
+    "deploy-prod": "source envs/prod.env && npm run pre-deploy && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run post-prod'",
 
-    "deploy": "npm run clean && npm run build && npm run pre-deploy && npm run deploy-debug && npm run deploy-prod",
+    "deploy": "npm run clean && npm run pre-deploy && npm run deploy-debug && npm run deploy-prod",
     
     "start": "npm run pre-run && node .",
     "restart": "npm run clean && npm run build && npm start",
