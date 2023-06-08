@@ -2,7 +2,7 @@
   "main": "dist/index.js",
   "scripts": {
     "copy-resources": "cp -r puzzle-packages src/views dist/",
-    "build": "tsc && npm run copy-resources && mkdir -p dist",
+    "build": "mkdir -p dist && npm run copy-resources && tsc",
     "sync-remote": "source envs/deploy.env && rsync -av --exclude='envs' --exclude='logs' --exclude='.git' --exclude='node_modules' --exclude='dist' $(pwd) $DEPLOY_PATH",
     "build-remote": "source envs/deploy.env && ssh -t root@$PROD_IP 'cd marcos-22nd-web ; npm run build'",
     "pre-run": "NODE_PATH=dist/ node ./dist/index.js",
