@@ -19,10 +19,10 @@ const riddles: Riddle[] = [
     riddle: 'My name corresponds to the stars and in the imaginary space',
     answer: 'libra-complex',
   },
-  { riddle: 'A place that brings every Mudd student together', answer: 'hoch' },
+  { riddle: 'A place that brings Mudders together', answer: 'hoch' },
   { riddle: "Walter White would've lived in which dorm?", answer: 'atwood' },
   {
-    riddle: "I come in blue, red and green. Sometimes I'll disturb your course unseen. What am I?",
+    riddle: "I come in blue, red, and green. Sometimes I'll disturb your course unseen. What am I?",
     answer: 'shells',
   },
   { riddle: "Usain Bolt's competitor", answer: 'dean-chris' },
@@ -34,7 +34,7 @@ const riddles: Riddle[] = [
   },
   {
     riddle:
-      'for (int i = 0; i < N; i++) { for (int j = i + 1; i < N; j++) { <code> } }. What is the complexity of this algorithm?',
+      'for (int i = 0; i < N; i++) { for (int j = i + 1; i < N; j++) { <constant_code> } }. What is the complexity of this algorithm?',
     answer: 'quadratic',
   },
 ]

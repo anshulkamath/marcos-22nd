@@ -5,7 +5,10 @@ import { getIPAddress } from 'utils/helper.util'
 const getScavengerHuntHandler =
   (riddle: string) =>
   (req: Request, res: Response): void => {
-    console.log(`${getIPAddress(req.socket.remoteAddress)} getting frosh puzzle: ${riddle}`)
+    const guess = req.baseUrl.substring(req.baseUrl.lastIndexOf('/'), req.baseUrl.length)
+    console.log(
+      `${getIPAddress(req.socket.remoteAddress)} guessed ${guess}. Getting frosh puzzle: ${riddle}`,
+    )
     res.status(200).render('frosh-puzzle', { riddle })
   }
 
