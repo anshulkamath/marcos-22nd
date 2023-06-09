@@ -24,6 +24,7 @@ import {
   getMemoryLaneViewHandler,
   getCongratsViewHandler,
   getDanViewHandler,
+  getFroshSurpriseHandler,
 } from 'controllers/view.controller'
 import { getCrosswordHandler, postCrosswordHandler } from 'controllers/crossword.controller'
 import { FILE_ERROR_NAME, FILE_LOG_NAME, createLogWrapper, createWriteStream } from 'constants/log'
@@ -75,6 +76,8 @@ app.post('/revb', postRevbHandler)
 
 app.get('/crossword', getCrosswordHandler)
 app.post('/crossword', postCrosswordHandler)
+
+app.get('/frosh-surprise', getFroshSurpriseHandler)
 
 app.listen(port, () => {
   console.log('Server started')

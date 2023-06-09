@@ -4,7 +4,7 @@
   "keyword": "riggs",
   "description": "I wrote this puzzle during Easter. Very ~thematic~. Now go hunt.",
   "hint": "git gud @ puzzles",
-  "redirect": "{{endpoint}}/scavenger-hunt",
+  "redirect": "{{endpoint}}/frosh-surprise",
   "resourceName": null,
   "successMessage": "Congrats on finding all of your easter eggs!",
   "failureMessage": "You might have a few more easter eggs to go."

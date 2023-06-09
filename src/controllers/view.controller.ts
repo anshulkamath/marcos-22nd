@@ -12,6 +12,7 @@ import {
   dansSurprise,
 } from 'constants/puzzle'
 import { type Request, type Response } from 'express'
+import { getIPAddress } from 'utils/helper.util'
 
 export const getViewHandler =
   (view: string, puzzleId: string, options?: any) =>
@@ -20,10 +21,16 @@ export const getViewHandler =
     const expectedKeyword = idToPuzzle[puzzleId].keyword
 
     if (keywords.indexOf(id) < keywords.indexOf(expectedKeyword) - 1) {
+      console.log(
+        `${getIPAddress(
+          req.socket.remoteAddress,
+        )} unauthorized to access page ${expectedKeyword} with keyword: '${id}'`,
+      )
       res.status(403).render('403', { path: req.originalUrl })
       return
     }
 
+    console.log(`${getIPAddress(req.socket.remoteAddress)} successfully getting page '${id}'`)
     res.status(200).render(view, { endpoint: ENDPOINT, ...options })
   }
 
@@ -46,6 +53,10 @@ export const getMemoryLaneViewHandler = getViewHandler(
   memoryLanePuzzle.template!,
   memoryLanePuzzle.id,
 )
+
+export const getFroshSurpriseHandler = (req: Request, res: Response): void => {
+  res.redirect('/scavenger-hunt/start')
+}
 
 export const getCongratsViewHandler = (req: Request, res: Response): void => {
   const key = _.get(req, 'query.keyword', keywords[0])

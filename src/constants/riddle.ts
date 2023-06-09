@@ -12,7 +12,7 @@ interface RiddleData {
 }
 
 const riddles: Riddle[] = [
-  { riddle: '', answer: 'scavenger-hunt' },
+  { riddle: '', answer: 'start' },
   { riddle: 'DEFGECD, what am I?', answer: 'lick' },
   { riddle: 'What do violins say when they greet each other?', answer: 'cello' },
   {
