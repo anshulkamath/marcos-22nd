@@ -2,10 +2,10 @@
   "id": "football",
   "title": "Footballogy",
   "keyword": "ny mf giants",
-  "description": "This puzzle is dedicated to the biggest fútbol fan I've met - congrats on winning the World Cup. Now let's see if you know your Argentinian soccer history.",
+  "description": "This puzzle is dedicated to the most basic fútbol fan I've met - congrats on winning the World Cup. Now let's see if you know your Argentinian football history.",
   "hint": "https://en.wikipedia.org/wiki/Argentina_national_football_team",
-  "redirect": null,
+  "redirect": "https://www.gradescope.com/courses/495559/assignments/2932980",
   "resourceName": null,
-  "successMessage": "YOU REALLY ARE A GIANTS SUPERFAN <3",
-  "failureMessage": "I can't even begin to express my disappointment in your failures."
+  "successMessage": "If you're gonna be in NYC, you gotta know the lay of the land.",
+  "failureMessage": "I can't even begin to express my disappointment in you."
 }
