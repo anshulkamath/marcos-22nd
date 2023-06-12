@@ -39,7 +39,7 @@ console.log = createLogWrapper(createWriteStream(FILE_LOG_NAME))
 console.error = createLogWrapper(createWriteStream(FILE_ERROR_NAME))
 
 const app = express()
-const port = process.env.PORT ?? 61400
+const port = process.env.PORT ?? 80
 
 app.use(cors())
 app.use(bodyParser.json())

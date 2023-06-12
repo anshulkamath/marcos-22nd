@@ -3,9 +3,9 @@
   "title": "Memory Lane",
   "keyword": "paco",
   "description": "You've made it to the final puzzle! Congratulations. I've decided to reward you with a nice stroll through memory lane. Have fun :)",
-  "hint": "none needed",
+  "hint": "just keep playing",
   "redirect": "{{endpoint}}/memory-lane",
-  "resourceName": null,
+  "resourceName": "{{endpoint}}/riggs",
   "successMessage": "Happy birthday, Paco :)",
   "failureMessage": "That's not the right keyphrase - try entering it again?",
   "template": "memory-lane"

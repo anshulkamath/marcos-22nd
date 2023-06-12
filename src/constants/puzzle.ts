@@ -58,6 +58,7 @@ export const puzzleInfo: PuzzleInfo[] = [
 
 puzzleInfo.forEach((puzzle) => {
   puzzle.redirect = stringTemplateParser(puzzle.redirect, { endpoint: ENDPOINT_URL })
+  puzzle.resourceName = stringTemplateParser(puzzle.resourceName, { endpoint: ENDPOINT_URL })
 })
 
 congrats.redirect =
