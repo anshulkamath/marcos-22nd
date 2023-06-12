@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import { type Request, type Response } from 'express'
-import { getPlaylist, calculateScore } from 'spotify-minigame'
+import { getPlaylist, calculateScore } from 'memory-lane'
 import { finale, idToPuzzle } from 'constants/puzzle'
-import { MAX_ROUNDS } from 'constants/spotify'
+import { MAX_ROUNDS, memoryLaneId } from 'constants/memory-lane'
 import { catchError } from 'utils/error.util'
 
 export const getSpotifySong = async (req: Request, res: Response): Promise<void> => {
@@ -27,7 +27,7 @@ export const getSpotifySong = async (req: Request, res: Response): Promise<void>
 export const postSpotifySong = async (req: Request, res: Response): Promise<void> => {
   const { name, date, id, level, round } = req.body
 
-  const spotifyPuzzle = _.get(idToPuzzle, 'spotify', undefined)
+  const spotifyPuzzle = _.get(idToPuzzle, memoryLaneId, undefined)
 
   if (!spotifyPuzzle) {
     res.status(500).send({

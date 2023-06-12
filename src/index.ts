@@ -12,7 +12,7 @@ import {
   postPuzzleHandler,
 } from 'controllers/puzzle.controller'
 
-import { getSpotifySong, postSpotifySong } from 'controllers/spotify.controller'
+import { getSpotifySong, postSpotifySong } from 'controllers/memory-lane.controller'
 import { postRevbHandler } from 'controllers/revb.controller'
 import { getRSAPuzzleHandler, postRSAPuzzleHandler } from 'controllers/rsa.controller'
 import { scavengerHuntMiddleware } from 'controllers/scavenger-hunt.controller'
