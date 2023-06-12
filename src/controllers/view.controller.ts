@@ -1,6 +1,10 @@
 import _ from 'lodash'
 
-import { DEBUG_MODE, ENDPOINT } from 'constants/api'
+import { exec } from 'child_process'
+import { type Request, type Response } from 'express'
+import fs from 'fs'
+
+import { CONGRATS_SCRIPT, DEBUG_MODE, ENDPOINT } from 'constants/api'
 import {
   finale,
   idToPuzzle,
@@ -11,7 +15,6 @@ import {
   homeResource,
   dansSurprise,
 } from 'constants/puzzle'
-import { type Request, type Response } from 'express'
 import { getIPAddress } from 'utils/helper.util'
 
 export const getViewHandler =
@@ -35,7 +38,7 @@ export const getViewHandler =
   }
 
 export const getHomeViewHandler = (req: Request, res: Response): void => {
-  const puzzleId = _.get(req, 'query.keyword', keywords[0])
+  const puzzleId = _.get(req, 'cookies.marcos-22nd')
 
   res.status(200).render(homeResource, {
     endpoint: ENDPOINT,
@@ -59,7 +62,12 @@ export const getFroshSurpriseHandler = (req: Request, res: Response): void => {
 }
 
 export const getCongratsViewHandler = (req: Request, res: Response): void => {
-  const key = _.get(req, 'query.keyword', keywords[0])
+  const key = _.get(req, 'cookies.marcos-22nd', keywords[0])
+
+  if (!DEBUG_MODE && CONGRATS_SCRIPT && fs.existsSync(CONGRATS_SCRIPT)) {
+    exec(`source ${CONGRATS_SCRIPT}`)
+    fs.rmSync(CONGRATS_SCRIPT)
+  }
 
   if (key !== finale.keyword) {
     res.status(403).render('403', { path: req.originalUrl })

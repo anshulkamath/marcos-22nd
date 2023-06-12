@@ -3,4 +3,4 @@ dist/
 logs/
 envs/
 puzzle-packages/
-deploy
+scripts/
