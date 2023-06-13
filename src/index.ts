@@ -10,6 +10,7 @@ import {
   getPuzzleMetadataHandler,
   getPuzzleHandler,
   postPuzzleHandler,
+  updateCookieHandler,
 } from 'controllers/puzzle.controller'
 
 import { getSpotifySong, postSpotifySong } from 'controllers/memory-lane.controller'
@@ -65,6 +66,7 @@ app.use(scavengerHuntMiddleware)
 app.get('/puzzleMetadata', getPuzzleMetadataHandler)
 app.get('/puzzle', getPuzzleHandler)
 app.post('/puzzle', postPuzzleHandler)
+app.put('/puzzle', updateCookieHandler)
 
 app.get('/memory-lane/api', getSpotifySong)
 app.post('/memory-lane/api', postSpotifySong)

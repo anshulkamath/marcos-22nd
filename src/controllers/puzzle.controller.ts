@@ -1,27 +1,27 @@
 import _ from 'lodash'
 import { type Request, type Response } from 'express'
 import path from 'path'
-import { GET_PUZZLE_NAMES_QUERY } from '../constants/api'
+import { COOKIE_AGE, COOKIE_KEY, GET_PUZZLE_NAMES_QUERY } from '../constants/api'
 import { finale, keywords, puzzleInfo, puzzleNames } from '../constants/puzzle'
-import { getIPAddress } from 'utils/helper.util'
+import { getIPAddress, getKeyword } from 'utils/helper.util'
 
 export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
-  const puzzleId = _.get(req, 'headers.authorization', keywords[0])
-  const puzzleIndex = keywords.indexOf(puzzleId)
+  const keyword = getKeyword(req)
+  const puzzleIndex = keywords.indexOf(keyword)
 
   console.log(
     `${getIPAddress(
       req.socket.remoteAddress ?? '??',
-    )} attempting to fetch metadata using keyword '${puzzleId}'`,
+    )} attempting to fetch metadata using keyword '${keyword}'`,
   )
 
-  if (puzzleId === finale.keyword) {
+  if (keyword === finale.keyword) {
     res.status(200).send({ puzzleInfo })
     return
   }
 
   if (puzzleIndex === -1) {
-    console.error(`${getIPAddress(req.socket.remoteAddress)} gave an invalid keyword: ${puzzleId}`)
+    console.error(`${getIPAddress(req.socket.remoteAddress)} gave an invalid keyword: ${keyword}`)
     res.status(400).send({
       error: 'An invalid keyword was given',
     })
@@ -34,7 +34,7 @@ export const getPuzzleMetadataHandler = (req: Request, res: Response): void => {
 }
 
 export const getPuzzleHandler = (req: Request, res: Response): void => {
-  const puzzleId = _.get(req, 'headers.authorization', keywords[0])
+  const keyword = getKeyword(req)
   const { field } = req.query
   const { day } = req.query
 
@@ -43,7 +43,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
     return
   }
 
-  if (!puzzleId) {
+  if (!keyword) {
     console.error(`${getIPAddress(req.socket.remoteAddress)} did not give puzzle id`)
     res.status(400).send({
       message: 'Puzzle id was not given.',
@@ -52,8 +52,8 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
   }
 
   const puzzleIndex = Number.parseInt(day as string)
-  if (puzzleIndex < 0 || puzzleIndex > keywords.indexOf(puzzleId) + 1) {
-    console.error(`Incorrect puzzle id give: ${puzzleId}`)
+  if (puzzleIndex < 0 || puzzleIndex > keywords.indexOf(keyword) + 1) {
+    console.error(`Incorrect puzzle id given: ${keyword}`)
     res.status(400).send({
       message: 'Incorrect puzzle id given',
     })
@@ -73,7 +73,7 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
   console.log(
     `${getIPAddress(
       req.socket.remoteAddress ?? '??',
-    )} attempting to get puzzle ${puzzleId} located at ${resourceDir}`,
+    )} attempting to get puzzle ${keyword} located at ${resourceDir}`,
   )
   res.status(200).download(resourceDir, (err) => {
     if (err) {
@@ -92,9 +92,9 @@ export const getPuzzleHandler = (req: Request, res: Response): void => {
 }
 
 export const postPuzzleHandler = (req: Request, res: Response): void => {
-  const puzzleId = _.get(req, 'headers.authorization', keywords[0])
+  const keyword = getKeyword(req)
   const { keyword: guess } = req.body
-  const keywordIdx = keywords.indexOf(puzzleId)
+  const keywordIdx = keywords.indexOf(keyword)
 
   if (keywords.indexOf(guess) !== keywordIdx + 1) {
     console.log(
@@ -110,7 +110,28 @@ export const postPuzzleHandler = (req: Request, res: Response): void => {
     `${getIPAddress(req.socket.remoteAddress ?? '??')} has solved puzzle ${keywordIdx + 1}!`,
   )
 
+  res.cookie(COOKIE_KEY, guess, { maxAge: COOKIE_AGE })
+
   res.status(200).send({
     message: puzzleInfo[keywordIdx + 1].successMessage,
   })
+}
+
+export const updateCookieHandler = (req: Request, res: Response): void => {
+  const keyword = getKeyword(req)
+  const current = _.get(req, 'headers.authorization')
+
+  if (!current) {
+    res.status(400).send('Did not have keyword in authorization header to update with')
+    return
+  }
+
+  res.status(200)
+
+  if (keywords.indexOf(current) > keywords.indexOf(keyword)) {
+    res.cookie(COOKIE_KEY, current, { maxAge: COOKIE_AGE })
+    res.status(201)
+  }
+
+  res.send()
 }

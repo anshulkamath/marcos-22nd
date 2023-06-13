@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { type Response, type Request } from 'express'
 import { MAX_ROUNDS, SCORE_THRESH } from 'constants/revb'
-import { validateCookie } from 'utils/helper.util'
+import { validateKeyword } from 'utils/helper.util'
 import { idToPuzzle, keywords } from 'constants/puzzle'
 
 export const postRevbHandler = (req: Request, res: Response): void => {
@@ -9,7 +9,7 @@ export const postRevbHandler = (req: Request, res: Response): void => {
   const id = _.get(req, 'headers.authorization', keywords[0])
   const keyword = _.get(idToPuzzle, 'revb.keyword')
 
-  if (!validateCookie(id, 'revb')) {
+  if (!validateKeyword(id, 'revb')) {
     res.status(403).send({ error: 'You are not yet authorized to access this resource.' })
     return
   }
